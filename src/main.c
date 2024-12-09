@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "MLX42/MLX42.h"
-#define WIDTH 256
-#define HEIGHT 256
+#define WIDTH 1000
+#define HEIGHT 1000
 
 // Exit the program as failure.
 static void ft_error(void)
@@ -34,12 +34,19 @@ int32_t	main(void)
 	/* Do stuff */
 
 	// Create and display the image.
-	mlx_image_t* img = mlx_new_image(mlx, 256, 256);
+	mlx_image_t* img = mlx_new_image(mlx, 1000, 1000);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		ft_error();
 
 	// Even after the image is being displayed, we can still modify the buffer.
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+	int i = 0;
+	int j = 0;
+	while (i < 1000)
+	{
+		mlx_put_pixel(img, i, j, 0xFF6A5ACD);
+		i += 2;
+		j++;
+	}
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
@@ -48,3 +55,4 @@ int32_t	main(void)
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
+
