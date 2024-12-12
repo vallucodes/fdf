@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "fdf.h"
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 1200
+#define HEIGHT 1200
 
 // Exit the program as failure.
 static void ft_error(void)
@@ -21,6 +21,27 @@ static void ft_error(void)
 
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
+
+void	isometric_conversion(int *x, int *y)
+{
+	int i;
+	int temp;
+
+	temp = 0;
+	i = 1;
+	while (i < 4)
+	{
+		x[i] = x[i - 1] + 75;
+		y[i] = y[i - 1] + 50;
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		printf("x:%i, y:%i\n", x[i], y[i]);
+		i++;
+	}
+}
 
 int32_t	main(void)
 {
@@ -41,21 +62,18 @@ int32_t	main(void)
 		ft_error();
 
 	// Even after the image is being displayed, we can still modify the buffer.
-	int32_t* pixels = (int32_t*)img->pixels;
 	// draw_line(pixels, img->width, 100, 100, 600, 500, 0xFF0000FF);
 	// draw_line(pixels, img->width, 500, 500, 900, 100, 0xFF0000FF);
-	draw_line(pixels, img->width, 500, 500, 600, 500, 0xFF0000FF); // 0 degrees (right)
-	draw_line(pixels, img->width, 500, 500, 560, 560, 0xFF0000FF); // ~30 degrees
-	draw_line(pixels, img->width, 500, 500, 530, 600, 0xFF0000FF); // ~60 degrees
-	draw_line(pixels, img->width, 500, 500, 500, 600, 0xFF0000FF); // 90 degrees (down)
-	draw_line(pixels, img->width, 500, 500, 470, 560, 0xFF0000FF); // ~120 degrees
-	draw_line(pixels, img->width, 500, 500, 440, 530, 0xFF0000FF); // ~150 degrees
-	draw_line(pixels, img->width, 500, 500, 400, 500, 0xFF0000FF); // 180 degrees (left)
-	draw_line(pixels, img->width, 500, 500, 440, 470, 0xFF0000FF); // ~210 degrees
-	draw_line(pixels, img->width, 500, 500, 470, 440, 0xFF0000FF); // ~240 degrees
-	draw_line(pixels, img->width, 500, 500, 500, 400, 0xFF0000FF); // 270 degrees (up)
-	draw_line(pixels, img->width, 500, 500, 530, 440, 0xFF0000FF); // ~300 degrees
-	draw_line(pixels, img->width, 500, 500, 560, 470, 0xFF0000FF); // ~330 degrees
+	int x[] = {150, 250, 150, 250};
+	int y[] = {150, 150, 250, 250};
+
+	isometric_conversion(x, y);
+	int32_t* pixels = (int32_t*)img->pixels;
+	draw_line(pixels, img->width, x[0], y[0], x[1], y[1], 0xFF0000FF);
+	draw_line(pixels, img->width, x[0], y[0], x[2], y[2], 0xFF0000FF);
+	draw_line(pixels, img->width, x[1], y[1], x[3], y[3], 0xFF0000FF);
+	draw_line(pixels, img->width, x[2], y[2], x[3], y[3], 0xFF0000FF);
+	// grid(img, 150, 150, 250, 250);
 
 
 	// Register a hook and pass mlx as an optional param.
