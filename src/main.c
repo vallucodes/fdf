@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "fdf.h"
-#define WIDTH 1200
-#define HEIGHT 1200
+#define WIDTH 3000
+#define HEIGHT 2000
 
 // Exit the program as failure.
 static void ft_error(void)
@@ -22,23 +22,15 @@ static void ft_error(void)
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
-void	isometric_conversion(int *x, int *y)
+void	scale(double *x, double *y)
 {
-	int i;
-	int temp;
+	int	i;
 
-	temp = 0;
-	i = 1;
-	while (i < 4)
-	{
-		x[i] = x[i - 1] + 75;
-		y[i] = y[i - 1] + 50;
-		i++;
-	}
 	i = 0;
 	while (i < 4)
 	{
-		printf("x:%i, y:%i\n", x[i], y[i]);
+		x[i] = SCALE * x[i];
+		y[i] = SCALE * y[i];
 		i++;
 	}
 }
@@ -55,8 +47,8 @@ int32_t	main(void)
 	/* Do stuff */
 
 	// Create and display the image.
-	int width = 1000;
-	int height = 1000;
+	int width = WIDTH;
+	int height = HEIGHT;
 	mlx_image_t* img = mlx_new_image(mlx, width, height);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		ft_error();
@@ -64,11 +56,28 @@ int32_t	main(void)
 	// Even after the image is being displayed, we can still modify the buffer.
 	// draw_line(pixels, img->width, 100, 100, 600, 500, 0xFF0000FF);
 	// draw_line(pixels, img->width, 500, 500, 900, 100, 0xFF0000FF);
-	int x[] = {150, 250, 150, 250};
-	int y[] = {150, 150, 250, 250};
-
-	isometric_conversion(x, y);
 	int32_t* pixels = (int32_t*)img->pixels;
+	double x[] = {0, 1, 0, 1};
+	double y[] = {0, 0, 1, 1};
+	double z[] = {0, 0, 0, 0};
+
+	scale(x, y);
+
+	draw_line(pixels, img->width, x[0], y[0], x[1], y[1], 0xFF00FF00);
+	draw_line(pixels, img->width, x[0], y[0], x[2], y[2], 0xFF00FF00);
+	draw_line(pixels, img->width, x[1], y[1], x[3], y[3], 0xFF00FF00);
+	draw_line(pixels, img->width, x[2], y[2], x[3], y[3], 0xFF00FF00);
+
+	rotation_X(y, z);
+	rotation_Y(x, z);
+	rotation_Z(x, y);
+
+	int i = 0;
+	while (i < 4)
+	{
+		printf("x:%.2f, y:%.2f, z:%.2f\n", x[i], y[i], z[i]);
+		i++;
+	}
 	draw_line(pixels, img->width, x[0], y[0], x[1], y[1], 0xFF0000FF);
 	draw_line(pixels, img->width, x[0], y[0], x[2], y[2], 0xFF0000FF);
 	draw_line(pixels, img->width, x[1], y[1], x[3], y[3], 0xFF0000FF);
