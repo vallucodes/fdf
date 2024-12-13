@@ -1,13 +1,19 @@
-NAME	:= Game
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
+NAME		= Game
+CFLAGS		= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX		= ./lib/MLX42
+OBJ_DIR		= obj/
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
+HEADERS		= -I ./include -I $(LIBMLX)/include
+LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS		= $(shell find ./src -iname "*.c")
+OBJS		= $(addprefix $(OBJ_DIR), $(SOURCES:.c=.o))
 
-all: libmlx $(NAME) clean
+all: libmlx $(NAME)
+
+OBJF		=	.directory_exists
+
+$(OBJF):
+		@mkdir -p $(OBJ_DIR)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
