@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/13 16:50:38 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:37:54 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	rotation_Z(double *x, double *y)
 {
 	int i;
 	int temp;
-	double theta = M_PI/4;
+	double theta = M_PI/8;
 	temp = 0;
 	i = 0;
 	while (i < 4)
@@ -58,4 +58,9 @@ void	rotation_Z(double *x, double *y)
 		y[i] = (temp * sin(theta) + y[i] * cos(theta));
 		i++;
 	}
+}
+void	scale(Map map)
+{
+	map.width = SCALE * map.width;
+	map.height = SCALE * map.height;
 }

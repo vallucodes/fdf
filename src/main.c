@@ -22,17 +22,32 @@ static void ft_error(void)
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
-void	scale(double *x, double *y)
+void	create_coordinates(Map map)
 {
-	int	i;
+	double x[] = {0, 1, 0, 1};
+	double y[] = {0, 0, 1, 1};
+}
+
+Map populate_map()
+{
+	Map map;
+	int i;
+	int j;
 
 	i = 0;
-	while (i < 4)
+	map.width = 3;
+	map.height = 4;
+	while (i < map.width)
 	{
-		x[i] = SCALE * x[i];
-		y[i] = SCALE * y[i];
+		j = 0;
+		while (j < map.height)
+		{
+			map.z[i][j] = 0;
+			j++;
+		}
 		i++;
 	}
+	return (map);
 }
 
 int32_t	main(void)
@@ -57,11 +72,14 @@ int32_t	main(void)
 	// draw_line(pixels, img->width, 100, 100, 600, 500, 0xFF0000FF);
 	// draw_line(pixels, img->width, 500, 500, 900, 100, 0xFF0000FF);
 	int32_t* pixels = (int32_t*)img->pixels;
+	Map map;
+	map = populate_map();
 	double x[] = {0, 1, 0, 1};
 	double y[] = {0, 0, 1, 1};
 	double z[] = {0, 0, 0, 0};
-
-	scale(x, y);
+	
+	create_coordinates(map);
+	scale(map);
 
 	draw_line(pixels, img->width, x[0], y[0], x[1], y[1], 0xFF00FF00);
 	draw_line(pixels, img->width, x[0], y[0], x[2], y[2], 0xFF00FF00);
@@ -70,7 +88,7 @@ int32_t	main(void)
 
 	rotation_X(y, z);
 	rotation_Y(x, z);
-	rotation_Z(x, y);
+	// rotation_Z(x, y);
 
 	int i = 0;
 	while (i < 4)

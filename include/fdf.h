@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/13 16:53:24 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:38:12 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef struct {
 	int e2;
 } LineVars;
 
+typedef struct {
+	int **z;
+	int width;
+	int height;
+	int max_height;
+} Map;
+
 # include "MLX42/MLX42.h"
 # include <stdlib.h>
 # include <math.h> // math
@@ -34,5 +41,6 @@ void	grid(mlx_image_t* img, int x1, int x2, int y1, int y2);
 void	rotation_X(double *y, double *z);
 void	rotation_Y(double *x, double *z);
 void	rotation_Z(double *x, double *y);
+void	scale(Map map);
 
 #endif
