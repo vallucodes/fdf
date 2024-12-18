@@ -8,6 +8,7 @@ HEADERS		= -I ./include -I $(LIBMLX)/include
 LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS		= $(shell find src -iname "*.c" | sed 's|^\./||')
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+DEPS		= $(shell find include -iname "*.h")
 
 all: $(OBJ_DIR) libmlx $(NAME)
 
@@ -17,7 +18,7 @@ $(OBJ_DIR):
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(DEPS)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
