@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotation.c                                         :+:      :+:    :+:   */
+/*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/18 16:04:08 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:54:00 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rotation_X(Map *map)
+void	rotation_X(Map *map, double theta)
 {
 	int i;
 	int temp;
-	double theta = atan(sqrt(1.0 / 2.0));
+
 	temp = 0;
 	i = 0;
 	while (i < map->size)
@@ -28,12 +28,11 @@ void	rotation_X(Map *map)
 	}
 }
 
-void	rotation_Y(Map *map)
+void	rotation_Y(Map *map, double theta)
 {
 	int i;
 	int temp;
-	double theta = atan(sqrt(1.0 / 2.0));
-	// double theta = 0.1;
+
 	temp = 0;
 	i = 0;
 	while (i < map->size)
@@ -45,11 +44,11 @@ void	rotation_Y(Map *map)
 	}
 }
 
-void	rotation_Z(Map *map)
+void	rotation_Z(Map *map, double theta)
 {
 	int i;
 	int temp;
-	double theta = M_PI/6;
+
 	temp = 0;
 	i = 0;
 	while (i < map->size)
@@ -69,6 +68,19 @@ void	scale(Map *map)
 	{
 		map->points[i].x *= SCALE;
 		map->points[i].y *= SCALE;
+		i++;
+	}
+}
+
+void	translate(Map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->size)
+	{
+		map->points[i].x += WIDTH / 2;
+		map->points[i].y += HEIGHT / 8;
 		i++;
 	}
 }

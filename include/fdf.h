@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/18 16:03:03 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:55:02 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 # include "MLX42/MLX42.h"
 # include <stdlib.h>
+# include <stdio.h> //printf
 # include <math.h> // math
 
-# define SCALE 10
+# define SCALE 50
+# define WIDTH 2000
+# define HEIGHT 1500
 
 typedef struct {
 	int sx;
@@ -36,9 +39,15 @@ typedef struct {
 }		Draw;
 
 typedef struct {
-	int x;
-	int y;
-	int z;
+	float angle_x;
+	float angle_y;
+	float angle_z;
+}		Angle;
+
+typedef struct {
+	float x;
+	float y;
+	float z;
 }		Point;
 
 typedef struct {
@@ -49,15 +58,28 @@ typedef struct {
 	int max_height;
 }		Map;
 
-void	draw_line(int32_t* pixels, int width, int x1, int y1, int x2, int y2, int color);
+
+
 void	grid(mlx_image_t* img, int x1, int x2, int y1, int y2);
 
-void	rotation_X(Map *map);
-void	rotation_Y(Map *map);
-void	rotation_Z(Map *map);
-void	scale(Map *map);
+//initiate
+void	populate_map(Map *map);
+void	define_angles(Angle *an);
 
+//operators
+void	rotation_X(Map *map, double theta);
+void	rotation_Y(Map *map, double theta);
+void	rotation_Z(Map *map, double theta);
+void	scale(Map *map);
+void	translate(Map *map);
+
+//drawing
 void	draw(int32_t *pixels, mlx_image_t* img, Point *point1, Point *point2);
+void	draw_line(int32_t *pixels, int width, Draw start_end, int color);
 void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map);
+
+//small_operations
+void	ft_round(Map *map);
+void	print_result(Map *map);
 
 #endif

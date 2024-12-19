@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:58:45 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:59:14 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "../include/fdf.h"
-#define WIDTH 2000
-#define HEIGHT 1500
 
 // Exit the program as failure.
 static void ft_error(void)
@@ -31,60 +29,6 @@ static void ft_error(void)
 
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
-
-void	print_result(Map *map)
-{
-	int i = 0;
-	while (i < map->size)
-	{
-		printf("i: %i, ", i);
-		printf("xyz: %i ", map->points[i].x);
-		printf("%i ", map->points[i].y);
-		printf("%i\n", map->points[i].z);
-		i++;
-	}
-	printf("----------------------------------------------\n");
-}
-// c + map->width
-
-void	translate(Map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->size)
-	{
-		map->points[i].x += WIDTH / 4;
-		map->points[i].y += HEIGHT / 8;
-		i++;
-	}
-}
-
-void	populate_map(Map *map)
-{
-	int x;
-	int y;
-	int i;
-
-	x = -1;
-	y = 0;
-	i = 0;
-	map->width = 30;
-	map->height = 14;
-	map->size = map->width * map->height;
-	map->points = malloc(map->size * sizeof(Point));
-	while (y < map->height)
-	{
-		x = -1;
-		while (++x < map->width)
-		{
-			map->points[i].x = x;
-			map->points[i].y = y;
-			map->points[i++].z = 0; //make function to get height later
-		}
-		y++;
-	}
-}
 
 int32_t	main(void)
 {
@@ -106,13 +50,18 @@ int32_t	main(void)
 
 	int32_t* pixels = (int32_t*)img->pixels;
 	Map map;
+	Angle an;
+	define_angles(&an);
 	populate_map(&map);
 	scale(&map);
 
-	rotation_X(&map);
-	rotation_Y(&map);
-	rotation_Z(&map);
+	rotation_X(&map, an.angle_x);
+	rotation_Y(&map, an.angle_y);
+	rotation_Z(&map, an.angle_z);
+
 	translate(&map);
+	print_result(&map);
+	// ft_round(&map);
 	print_result(&map);
 	draw_current_state(pixels, img, &map);
 	/*

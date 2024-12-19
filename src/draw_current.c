@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/18 15:23:20 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:28:58 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	draw(int32_t *pixels, mlx_image_t* img, Point *point1, Point *point2)
 {
-	// Draw points;
-	draw_line(pixels, img->width, point1->x, point1->y, point2->x, point2->y, 0xFF00FF00);
+	Draw start_end;
+
+	start_end.x1 = point1->x;
+	start_end.y1 = point1->y;
+	start_end.x2 = point2->x;
+	start_end.y2 = point2->y;
+	draw_line(pixels, img->width, start_end, 0xFF00FF00);
 }
 
 void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map)
