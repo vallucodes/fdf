@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/19 17:59:14 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/20 10:49:10 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int32_t	main(void)
 	Angle an;
 	define_angles(&an);
 	populate_map(&map);
+	print_result(&map);
 	scale(&map);
 
 	rotation_X(&map, an.angle_x);
@@ -61,8 +62,7 @@ int32_t	main(void)
 
 	translate(&map);
 	print_result(&map);
-	// ft_round(&map);
-	print_result(&map);
+	ft_round(&map);
 	draw_current_state(pixels, img, &map);
 	/*
 	int i = 0;

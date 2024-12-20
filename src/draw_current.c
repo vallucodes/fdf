@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/19 17:28:58 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:06:57 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	draw(int32_t *pixels, mlx_image_t* img, Point *point1, Point *point2)
 
 	start_end.x1 = point1->x;
 	start_end.y1 = point1->y;
+	start_end.z1 = point1->z;
 	start_end.x2 = point2->x;
 	start_end.y2 = point2->y;
+	start_end.z2 = point2->z;
 	draw_line(pixels, img->width, start_end, 0xFF00FF00);
 }
 

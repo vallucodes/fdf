@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/19 17:55:02 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:43:07 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,32 @@
 # include <stdio.h> //printf
 # include <math.h> // math
 
-# define SCALE 50
+# define SCALE 70
 # define WIDTH 2000
 # define HEIGHT 1500
+
+typedef struct {
+	uint8_t r1;
+	uint8_t g1;
+	uint8_t b1;
+	uint8_t a1;
+	uint8_t r2;
+	uint8_t g2;
+	uint8_t b2;
+	uint8_t a2;
+	uint8_t a;
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+}		Color;
 
 typedef struct {
 	int sx;
 	int dx;
 	int sy;
 	int dy;
+	int dz;
+	int steps;
 	int err;
 	int e2;
 }		LineVars;
@@ -34,8 +51,10 @@ typedef struct {
 typedef struct {
 	int x1;
 	int y1;
+	int z1;
 	int x2;
 	int y2;
+	int z2;
 }		Draw;
 
 typedef struct {
@@ -77,6 +96,9 @@ void	translate(Map *map);
 void	draw(int32_t *pixels, mlx_image_t* img, Point *point1, Point *point2);
 void	draw_line(int32_t *pixels, int width, Draw start_end, int color);
 void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map);
+
+//Colors
+uint32_t	interpolate_color(uint32_t color1, uint32_t color2, float t);
 
 //small_operations
 void	ft_round(Map *map);
