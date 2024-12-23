@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/20 13:32:54 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:04:36 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	populate_map(Map *map)
 		{
 			map->points[i].x = x;
 			map->points[i].y = y;
-			if (i % 9 == 0)
-				map->points[i++].z = -1; //make function to get height late
+			if (i % 11 == 0)
+				map->points[i++].z = 1; //make function to get height late
 			else
 				map->points[i++].z = 0;
 		}

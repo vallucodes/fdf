@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/20 13:43:07 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:36:39 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,19 @@
 # include <stdio.h> //printf
 # include <math.h> // math
 
-# define SCALE 70
+# define SCALE 40
 # define WIDTH 2000
 # define HEIGHT 1500
 
 typedef struct {
-	uint8_t r1;
-	uint8_t g1;
-	uint8_t b1;
-	uint8_t a1;
-	uint8_t r2;
-	uint8_t g2;
-	uint8_t b2;
-	uint8_t a2;
-	uint8_t a;
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
+	uint8_t r[2];
+	uint8_t g[2];
+	uint8_t b[2];
+	uint8_t a[2];
+	uint8_t a_ip;
+	uint8_t r_ip;
+	uint8_t g_ip;
+	uint8_t b_ip;
 }		Color;
 
 typedef struct {
@@ -76,10 +72,6 @@ typedef struct {
 	int height;
 	int max_height;
 }		Map;
-
-
-
-void	grid(mlx_image_t* img, int x1, int x2, int y1, int y2);
 
 //initiate
 void	populate_map(Map *map);

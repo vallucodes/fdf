@@ -1,71 +1,39 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 13:23:59 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:28 by vlopatin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   colors.c                                           :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2024/12/20 13:23:59 by vlopatin          #+#    #+#             */
+// /*   Updated: 2024/12/23 12:17:37 by vlopatin         ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
 // #include "fdf.h"
 
-#include <stdio.h>
-#include <stdint.h>
+// static void	color_to_rgba(uint32_t color, Color *c, int i)
+// {
+// 	c->a[i] = (color >> 24) & 0xFF;
+// 	c->r[i] = (color >> 16) & 0xFF;
+// 	c->g[i] = (color >> 8) & 0xFF;
+// 	c->b[i] = color & 0xFF;
+// }
 
-typedef struct {
-	uint8_t r1;
-	uint8_t g1;
-	uint8_t b1;
-	uint8_t a1;
-	uint8_t r2;
-	uint8_t g2;
-	uint8_t b2;
-	uint8_t a2;
-	uint8_t a;
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-}		Color;
+// uint32_t	interpolate_color(uint32_t color1, uint32_t color2, float t)
+// {
+// 	Color	c;
+// 	int		i;
 
-static void	color_to_rgba(uint32_t color, Color *c)
-{
-	c->a1 = (color >> 24) & 0xFF;
-	c->r1 = (color >> 16) & 0xFF;
-	c->g1 = (color >> 8) & 0xFF;
-	c->b1 = color & 0xFF;
-}
+// 	i = 0;
+// 	while (i < 2)
+// 		color_to_rgba(color1, &c, i);
+// 		color_to_rgba(color2, &c, i);
 
-uint32_t	interpolate_color(uint32_t color1, uint32_t color2, float t)
-{
-	Color c;
+// 	c.a_ip = c.a[0] + (c.a[1] - c.a[0]) * t;
+// 	c.r_ip = c.r[0] + (c.r[1] - c.r[0]) * t;
+// 	c.g_ip = c.g[0] + (c.g[1] - c.g[0]) * t;
+// 	c.b_ip = c.b[0] + (c.b[1] - c.b[0]) * t;
 
-	color_to_rgba(color1, &c);
-	color_to_rgba(color2, &c);
-
-	c.a = c.a1 + (c.a2 - c.a1) * t;
-	c.r = c.r1 + (c.r2 - c.r1) * t;
-	c.g = c.g1 + (c.g2 - c.g1) * t;
-	c.b = c.b1 + (c.b2 - c.b1) * t;
-
-	return ((c.a << 24) | (c.r << 16) | (c.g << 8) | c.b);
-}
-
-int main() {
-    uint32_t color1 = 0xFF00FF00;  // Green (start)
-    uint32_t color2 = 0xFFFF0000;  // Red (end)
-    int steps = 10;  // Number of gradient steps
-
-    // Print the gradient
-    for (int i = 0; i <= steps; i++) {
-        float t = (float)i / steps;  // Fractional value from 0 to 1
-        uint32_t color = interpolate_color(color1, color2, t);
-
-        // Print the interpolated color (in hexadecimal)
-        printf("Step %d: 0x%08X\n", i, color);
-    }
-
-    return 0;
-}
+// 	return ((c.a_ip << 24) | (c.r_ip << 16) | (c.g_ip << 8) | c.b_ip);
+// }

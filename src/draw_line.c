@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/20 13:01:17 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:31:57 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void draw_line(int32_t *pixels, int width, Draw start_end, int color)
 	initiate_vars(&vars, start_end);
 	while (1)
 	{
-		// int color = interpolate_color(color_start, color_end, z);
+		// int color = interpolate_color(0xAA00FF00, 0xFFFF0000, vars.dz);
 		pixels[start_end.y1 * width + start_end.x1] = color;
 		if (start_end.x1 == start_end.x2 && start_end.y1 == start_end.y2)
 			break;
@@ -60,7 +60,7 @@ void draw_line(int32_t *pixels, int width, Draw start_end, int color)
 			vars.err += vars.dx;
 			start_end.y1 += vars.sy;
 		}
-		start_end.z1 += vars.dz; // Interpolate z
+		// start_end.z1 += vars.dz; // Interpolate z
 	}
 }
 
