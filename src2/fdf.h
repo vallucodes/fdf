@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:41:06 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 13:09:15 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # define SCALE 40
 # define WIDTH 2000
 # define HEIGHT 1500
+
+typedef struct {
+	uint32_t non_elevated;
+	uint32_t elevated;
+}		Colors;
 
 typedef struct {
 	uint8_t r[2];
@@ -38,11 +43,10 @@ typedef struct {
 	int dx;
 	int sy;
 	int dy;
-	float dz;
+	int dz;
 	int steps;
 	int err;
 	int e2;
-	float t;
 }		LineVars;
 
 typedef struct {
@@ -64,6 +68,7 @@ typedef struct {
 	float x;
 	float y;
 	float z;
+	int elevated;
 }		Point;
 
 typedef struct {
@@ -77,6 +82,7 @@ typedef struct {
 //initiate
 void	populate_map(Map *map);
 void	define_angles(Angle *an);
+void	define_colors(Colors *cl);
 
 //operators
 void	rotation_X(Map *map, double theta);
@@ -86,12 +92,12 @@ void	scale(Map *map);
 void	translate(Map *map);
 
 //drawing
-void	draw(int32_t *pixels, mlx_image_t* img, Point *point1, Point *point2);
-void	draw_line(int32_t *pixels, int width, Draw start_end);
-void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map);
+// void	draw(int32_t *pixels, mlx_image_t* img, Point *point1, Point *point2);
+void	draw_line(int32_t *pixels, int width, Draw start_end, Colors *cl);
+void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map, Colors *cl);
 
 //Colors
-uint32_t	interpolate_color(uint32_t color1, uint32_t color2, float t);
+uint32_t	interpolate_color(Colors cl, float t);
 
 //small_operations
 void	ft_round(Map *map);

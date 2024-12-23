@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:41:18 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 13:10:25 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,16 @@ static void	initiate_vars(LineVars *vars, Draw start_end)
 	vars->dz = (start_end.z2 - start_end.z1);
 	vars->steps = fmax(vars->dx, vars->dy);
 	vars->err = vars->dx - vars->dy;
-	vars->dz = 1.0 / vars->steps;
+	vars->dz /= vars->steps;
 }
-void draw_line(int32_t *pixels, int width, Draw start_end)
+void	draw_line(int32_t *pixels, int width, Draw start_end, Colors *cl)
 {
 	LineVars vars;
 
-	vars.t = 0;
 	initiate_vars(&vars, start_end);
-	printf("%f\n", vars.dz);
 	while (1)
 	{
-		int color = interpolate_color(0xFF00FF00, 0xFFFF0000, vars.t);
-		if (vars.t != 0)
-			printf("%f\n", vars.t);
+		int color = interpolate_color(*cl, vars.dz);
 		pixels[start_end.y1 * width + start_end.x1] = color;
 		if (start_end.x1 == start_end.x2 && start_end.y1 == start_end.y2)
 			break;
@@ -64,7 +60,7 @@ void draw_line(int32_t *pixels, int width, Draw start_end)
 			vars.err += vars.dx;
 			start_end.y1 += vars.sy;
 		}
-		vars.t += vars.dz; // Interpolate z
+		start_end.z1 += vars.dz; // Interpolate z
 	}
 }
 

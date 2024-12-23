@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:33:44 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 13:03:11 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	initialize_points(Draw *start_end, Point *point1, Point *point2)
+static void	initialize_points(Draw *start_end, Point *point1, Point *point2)
 {
 	start_end->x1 = point1->x;
 	start_end->y1 = point1->y;
@@ -22,7 +22,7 @@ void	initialize_points(Draw *start_end, Point *point1, Point *point2)
 	start_end->z2 = point2->z;
 }
 
-void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map)
+void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map, Colors *cl)
 {
 	int		i;
 	int		j;
@@ -39,22 +39,12 @@ void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map)
 			if (i < (map->width - 1))
 			{
 				initialize_points(&start_end, &map->points[c], &map->points[c + 1]);
-				draw_line(pixels, img->width, start_end);
-				if (start_end.z1 == start_end.z2)
-				{
-					printf("Viiva piirretaa vaakaan\n");
-					printf("z1: %i,  z2: %i\n", start_end.z1, start_end.z2);
-				}
+				draw_line(pixels, img->width, start_end, cl);
 			}
 			if (j < (map->height - 1))
 			{
 				initialize_points(&start_end, &map->points[c], &map->points[c + map->width]);
-				draw_line(pixels, img->width, start_end);
-				if (start_end.z1 == start_end.z2)
-				{
-					printf("Viiva piirretaa alas\n");
-					printf("z1: %i,  z2: %i\n", start_end.z1, start_end.z2);
-				}
+				draw_line(pixels, img->width, start_end, cl);
 			}
 			c++;
 		}

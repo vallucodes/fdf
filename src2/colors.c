@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:23:59 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:24:39 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 13:12:49 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ static void	color_to_rgba(uint32_t color, Color *c, int i)
 	c->b[i] = color & 0xFF;
 }
 
-uint32_t	interpolate_color(uint32_t color1, uint32_t color2, float t)
+uint32_t	interpolate_color(Colors cl, float t)
 {
 	Color	c;
-	// int		i;
 
-	// i = 0;
-	color_to_rgba(color1, &c, 0);
-	color_to_rgba(color2, &c, 1);
+	color_to_rgba(cl.elevated, &c, 0);
+	color_to_rgba(cl.non_elevated, &c, 1);
 
 	c.a_ip = c.a[0] + (c.a[1] - c.a[0]) * t;
 	c.r_ip = c.r[0] + (c.r[1] - c.r[0]) * t;
