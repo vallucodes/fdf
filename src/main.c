@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:17:18 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 13:51:38 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int32_t	main(void)
 	int32_t* pixels = (int32_t*)img->pixels;
 	Map map;
 	Angle an;
+	Colors cl;
 	define_angles(&an);
+	define_colors(&cl);
 	populate_map(&map);
 	print_result(&map);
 	scale(&map);
@@ -63,7 +65,7 @@ int32_t	main(void)
 	translate(&map);
 	print_result(&map);
 	ft_round(&map);
-	draw_current_state(pixels, img, &map);
+	draw_current_state(pixels, img, &map, &cl);
 	/*
 	int i = 0;
 	while (i < 4)

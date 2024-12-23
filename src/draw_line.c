@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:41:18 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:12:26 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,19 @@ static void	initiate_vars(LineVars *vars, Draw start_end)
 	vars->dy = abs(start_end.y2 - start_end.y1);
 	vars->sx = sx(start_end.x1, start_end.x2);
 	vars->sy = sy(start_end.y1, start_end.y2);
-	vars->dz = (start_end.z2 - start_end.z1);
 	vars->steps = fmax(vars->dx, vars->dy);
 	vars->err = vars->dx - vars->dy;
 	vars->dz = 1.0 / vars->steps;
+	vars->t = 0;
 }
-void draw_line(int32_t *pixels, int width, Draw start_end)
+void	draw_line(int32_t *pixels, int width, Draw start_end)
 {
 	LineVars vars;
 
-	vars.t = 0;
 	initiate_vars(&vars, start_end);
-	printf("%f\n", vars.dz);
 	while (1)
 	{
-		int color = interpolate_color(0xFF00FF00, 0xFFFF0000, vars.t);
-		if (vars.t != 0)
-			printf("%f\n", vars.t);
+		int color = interpolate_color(start_end, vars.t);
 		pixels[start_end.y1 * width + start_end.x1] = color;
 		if (start_end.x1 == start_end.x2 && start_end.y1 == start_end.y2)
 			break;
