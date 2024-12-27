@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 13:51:38 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:22:00 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int32_t	main(void)
 	if (!mlx)
 		ft_error();
 
-	/* Do stuff */
+	// map_parsing();
 
 	// Create and display the image.
 	int width = WIDTH;
@@ -66,20 +66,6 @@ int32_t	main(void)
 	print_result(&map);
 	ft_round(&map);
 	draw_current_state(pixels, img, &map, &cl);
-	/*
-	int i = 0;
-	while (i < 4)
-	{
-		printf("x:%.2f, y:%.2f, z:%.2f\n", x[i], y[i], z[i]);
-		i++;
-	}
-	draw_line(pixels, img->width, x[0], y[0], x[1], y[1], 0xFF0000FF);
-	draw_line(pixels, img->width, x[0], y[0], x[2], y[2], 0xFF0000FF);
-	draw_line(pixels, img->width, x[1], y[1], x[3], y[3], 0xFF0000FF);
-	draw_line(pixels, img->width, x[2], y[2], x[3], y[3], 0xFF0000FF);
-	*/
-	// grid(img, 150, 150, 250, 250);
-
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!

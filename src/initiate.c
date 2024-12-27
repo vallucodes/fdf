@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 15:35:53 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:04:26 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	populate_map(Map *map)
 		{
 			map->points[i].x = x;
 			map->points[i].y = y;
-			if (i % 5 == 0 || i % 2 == 0)
+			if (i % 5 == 0 || i % 3 == 0)
 			{
 				map->points[i].z = 1; //make function to get height later
 				map->points[i++].elevated = 1;
@@ -53,7 +53,9 @@ void	define_angles(Angle *an)
 
 void	define_colors(Colors *cl)
 {
-	cl->non_elevated = 0xFF0000FF;
-	cl->elevated = 0xFF00FF00;
+	// cl->non_elevated = 0xFF0000FF;
+	// cl->elevated = 0xFF00FF00;
+	cl->non_elevated = 0xFF;
+	cl->elevated = 0xFF00;
 }
 

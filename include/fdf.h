@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 14:12:11 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:33:28 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <stdio.h> //printf
 # include <math.h> // math
+# include <fcntl.h> //open file
+#include <unistd.h>
 
 # define SCALE 40
 # define WIDTH 2000
