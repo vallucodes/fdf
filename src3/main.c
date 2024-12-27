@@ -51,7 +51,7 @@ uint32_t interpolate_color(Draw start_end, float t)
     c.r_ip = c.r[0] + (c.r[1] - c.r[0]) * t;
 
     // Return the final interpolated color
-    return ((c.a_ip << 24) | (c.b_ip << 16) | (c.g_ip << 8) | c.r_ip);
+    return ((c.a_ip << 24) | (c.r_ip << 16) | (c.g_ip << 8) | c.b_ip);
 }
 
 int main()
@@ -73,6 +73,7 @@ int main()
     // Print the RGBA values of the interpolated color
     printf("Interpolated Color (RGBA):\n");
     printf("R: %d, G: %d, B: %d, A: %d\n", c.r[0], c.g[0], c.b[0], c.a[0]);
+    printf("R: 0x%8X\n", interpolated_color);
 
     return 0;
 }
