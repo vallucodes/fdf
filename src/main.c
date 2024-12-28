@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/27 12:22:00 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:30:26 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void ft_error(void)
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
-int32_t	main(void)
+int32_t	main(int ac, char **av)
 {
 
 	// MLX allows you to define its core behaviour before startup.
@@ -39,7 +39,8 @@ int32_t	main(void)
 	if (!mlx)
 		ft_error();
 
-	// map_parsing();
+	// if (ac == 2)
+		// map_parsing(&map, av[1]);
 
 	// Create and display the image.
 	int width = WIDTH;

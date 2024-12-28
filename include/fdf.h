@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 16:33:28 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:06:01 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct {
 	float y;
 	float z;
 	int elevated;
+	uint32_t color;
 }		Point;
 
 typedef struct {

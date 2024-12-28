@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/28 00:04:29 by vlopatin         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:11:49 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_line(int32_t *pixels, int width, Draw start_end)
 	while (1)
 	{
 		color = interpolate_color(start_end, vars.t);
-		printf("R: 0x%12X\n", color);
+		printf("R: 0x%8X\n", color);
 		// color += 1;
 		pixels[start_end.y1 * width + start_end.x1] = color;
 		if (start_end.x1 == start_end.x2 && start_end.y1 == start_end.y2)
