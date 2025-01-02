@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:43 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/23 14:26:36 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:21:24 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	print_result(Map *map)
 		printf("xyz elev: %f ", map->points[i].x);
 		printf("%f ", map->points[i].y);
 		printf("%f ", map->points[i].z);
+		printf("%i ", map->points[i].color);
 		printf("%i\n", map->points[i].elevated);
 		i++;
 	}

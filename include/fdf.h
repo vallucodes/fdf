@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/29 16:18:57 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:42:02 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 # define FDF_h
 
 # include "MLX42/MLX42.h"
+# include "get_next_line.h"
 # include <stdlib.h>
 # include <stdio.h> //printf
 # include <math.h> // math
 # include <fcntl.h> //open file
 #include <unistd.h>
 
-# define SCALE 40
+# define SCALE 30
 # define WIDTH 2000
 # define HEIGHT 1500
 
@@ -86,7 +87,7 @@ typedef struct {
 }		Map;
 
 //initiate
-void	populate_map(Map *map);
+void	set_elevation(Map *map);
 void	define_angles(Angle *an);
 void	define_colors(Colors *cl);
 
@@ -107,5 +108,17 @@ uint32_t	interpolate_color(Draw cl, float t);
 //small_operations
 void	ft_round(Map *map);
 void	print_result(Map *map);
+
+//map parsing
+int		is_num(char c);
+int		is_alnum(char c);
+int		is_space(char c);
+int32_t	ft_atoi_base(char *str, int base);
+void	clear_fd(int fd);
+int		get_height(int fd);
+int		get_width(int fd);
+int		map_parsing(Map *map, char *av);
+
+
 
 #endif

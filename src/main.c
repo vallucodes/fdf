@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/28 14:30:26 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:30:39 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ int32_t	main(int ac, char **av)
 	if (!mlx)
 		ft_error();
 
-	// if (ac == 2)
-		// map_parsing(&map, av[1]);
-
+	Map map;
+	Angle an;
+	Colors cl;
+	if (ac == 2)
+		map_parsing(&map, av[1]);
+	set_elevation(&map); // under work right now
+	print_result(&map);
+	// show_parsed_data(&map);
 	// Create and display the image.
 	int width = WIDTH;
 	int height = HEIGHT;
@@ -50,12 +55,9 @@ int32_t	main(int ac, char **av)
 		ft_error();
 
 	int32_t* pixels = (int32_t*)img->pixels;
-	Map map;
-	Angle an;
-	Colors cl;
+
 	define_angles(&an);
 	define_colors(&cl);
-	populate_map(&map);
 	print_result(&map);
 	scale(&map);
 

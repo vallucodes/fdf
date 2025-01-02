@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/27 16:04:26 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:42:31 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	populate_map(Map *map)
+void	set_elevation(Map *map)
 {
 	int x;
 	int y;
@@ -20,27 +20,15 @@ void	populate_map(Map *map)
 
 	y = -1;
 	i = 0;
-	map->width = 20;
-	map->height = 20;
-	map->size = map->width * map->height;
-	map->points = malloc(map->size * sizeof(Point));
 	while (++y < map->height)
 	{
 		x = -1;
 		while (++x < map->width)
 		{
-			map->points[i].x = x;
-			map->points[i].y = y;
-			if (i % 5 == 0 || i % 3 == 0)
-			{
-				map->points[i].z = 1; //make function to get height later
+			if (map->points[i].z != 0)
 				map->points[i++].elevated = 1;
-			}
 			else
-			{
-				map->points[i].z = 0;
 				map->points[i++].elevated = 0;
-			}
 		}
 	}
 }
@@ -53,8 +41,6 @@ void	define_angles(Angle *an)
 
 void	define_colors(Colors *cl)
 {
-	// cl->non_elevated = 0xFF0000FF;
-	// cl->elevated = 0xFF00FF00;
 	cl->non_elevated = 0xFF;
 	cl->elevated = 0xFF00;
 }

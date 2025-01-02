@@ -6,9 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/30 13:45:21 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:02:33 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// everything works now nicely. Need to split populate_map2 function into smaller functions. error handling not checked properly
 
 // #include "../include/fdf.h"
 # include <stdlib.h>
@@ -35,45 +37,30 @@ typedef struct {
 	int max_height;
 }		Map;
 
-int	get_height(int fd)
+int	is_num(char c)
 {
-	char	*arr;
-	int		height;
-
-	height = 0;
-	arr = get_next_line(fd);
-	while (arr)
-	{
-		free(arr);
-		arr = get_next_line(fd);
-		height += 1;
-	}
-	free(arr);
-	return (height);
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
 }
 
-int	get_width(int fd)
+int	is_alnum(char c)
 {
-	char	*arr;
-	int		i;
-	int		width;
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
 
-	arr = get_next_line(fd);
-	i = 0;
-	width = 0;
-	while(arr[i] && arr[i] != '\n')
-	{
-		while(arr[i] == ' ')
-			i++;
-		if (arr[i] > 32 && arr[i] < 127)
-		{
-			while(arr[i] > 32 && arr[i] < 127)
-				i++;
-			width++;
-		}
-	}
-	free(arr);
-	return (width);
+int	is_space(char c)
+{
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	else
+		return (0);
 }
 
 static int	is_valid(char c, int base)
@@ -109,7 +96,7 @@ int32_t	ft_atoi_base(char *str, int base)
 
 	sign = 1;
 	i = 0;
-	while(str[i] == 32 || (str[i] > 8 && str[i] < 14))
+	while(is_space(str[i]))
 		i++;
 	if (str[i] == '-')
 	{
@@ -125,13 +112,99 @@ int32_t	ft_atoi_base(char *str, int base)
 	return (res * sign);
 }
 
+void	clear_fd(int fd)
+{
+	char *arr;
+	arr = get_next_line(fd);
+	while (arr)
+	{
+		free(arr);
+		arr = get_next_line(fd);
+	}
+	free(arr);
+}
+
+int	get_height(int fd)
+{
+	char	*arr;
+	int		height;
+
+	height = 0;
+	arr = get_next_line(fd);
+	if (!arr)
+		return (0);
+	while (arr)
+	{
+		free(arr);
+		arr = get_next_line(fd);
+		height += 1;
+	}
+	free(arr);
+	return (height);
+}
+
+int	get_width(int fd)
+{
+	char	*arr;
+	int		i;
+	int		width;
+
+	arr = get_next_line(fd);
+	if (!arr)
+		return (0);
+	i = 0;
+	width = 0;
+	while(arr[i] && arr[i] != '\n')
+	{
+		while(arr[i] == ' ')
+			i++;
+		if (arr[i] > 32 && arr[i] < 127)
+		{
+			while(arr[i] > 32 && arr[i] < 127)
+				i++;
+			width++;
+		}
+	}
+	free(arr);
+	clear_fd(fd);
+	return (width);
+}
+
+void	parse_row(Map *map, char *arr, int *c, int *i)
+{
+	int	j;
+
+	j = 0;
+	while(arr[j] && arr[j] != '\n')
+	{
+		map->points[*c].z = ft_atoi_base(&arr[j], 10);
+		map->points[*c].x = *c - *i * map->width;
+		map->points[*c].y = *i;
+		while(is_space(arr[j]))
+			j++;
+		while(arr[j] == '-' || is_num(arr[j]))
+			j++;
+		if(arr[j] == ',' && arr[j + 1] == '0')
+		{
+			j += 3;
+			map->points[*c].color = ft_atoi_base(&arr[j], 16);
+		}
+		else
+			map->points[*c].color = 0;
+		while(is_alnum(arr[j]))
+			j++;
+		while(is_space(arr[j]))
+			j++;
+		(*c)++;
+	}
+}
+
 int	populate_map2(Map *map, int fd)
 {
-	printf("populate map\n");
-	// char	*arr;
 	int		i;
-	int		j;
 	int		c;
+	char	*arr;
+
 	map->points = malloc(map->width * map->height * sizeof(Point));
 	if(!map->points)
 		return (0);
@@ -139,39 +212,24 @@ int	populate_map2(Map *map, int fd)
 	i = 0;
 	while (i < map->height)
 	{
-		char *arr = get_next_line(fd);
-		printf("round %i, arr %s", i, arr);
-		j = 0;
-		while(arr[j] && arr[j] != '\n')
-		{
-			map->points[c].z = ft_atoi_base(&arr[j], 10);
-			map->points[c].x = c; //- i * map->width
-			map->points[c].y = i;
-			while(arr[j] == ' ')
-				j++;
-			while(arr[j] == '-' || (arr[j] >= '0' && arr[j] <= '9'))
-				j++;
-			if(arr[j] == ',' && arr[j + 1] == '0')
-			{
-				j += 3;
-				map->points[c].color = ft_atoi_base(&arr[j], 16);
-			}
-			while(arr[j] && arr[j] != ' ' && arr[j] != '\n')
-				j++;
-			c++;
-		}
-		i++;
+		arr = get_next_line(fd);
+		if (!arr)
+			return (0);
+		parse_row(map, arr, &c, &i);
 		free(arr);
+		arr = NULL;
+		i++;
 	}
 	return (1);
 }
 
-void	load_data(Map *map, int *fd)
+int	load_data(Map *map, int *fd)
 {
 	map->height = get_height(fd[0]);
 	map->width = get_width(fd[1]);
-	populate_map2(map, fd[2]);
-	printf("fd: %i, %i, %i\n", fd[0], fd[1], fd[2]);
+	if (!populate_map2(map, fd[2]))
+		return (0);
+	return (1);
 }
 
 int	*open_file(char *map_name, int *fd)
@@ -184,27 +242,82 @@ int	*open_file(char *map_name, int *fd)
 
 int	map_parsing(Map *map, char *av)
 {
-	printf("parsing\n");
 	int fd[3];
 
 	open_file(av, fd);
 	if (fd[0] == -1 || fd[1] == -1 || fd[2] == -1)
-		return -1;
-	load_data(map, fd);
+	{
+		if (fd[0] == -1)
+			close(fd[0]);
+		if (fd[1] == -1)
+			close(fd[1]);
+		if (fd[2] == -1)
+			close(fd[2]);
+		return (0);
+	}
+	if (!load_data(map, fd))
+	{
+		close(fd[0]);
+		close(fd[1]);
+		close(fd[2]);
+		return (0);
+	}
 	close(fd[0]);
 	close(fd[1]);
 	close(fd[2]);
-	return (0);
+	return (1);
 }
 
 int main()
 {
 	Map map;
 	map_parsing(&map, "10-2.fdf");
+	free(map.points);
+	map_parsing(&map, "10-70.fdf");
+	free(map.points);
+	map_parsing(&map, "20-60.fdf");
+	free(map.points);
+	map_parsing(&map, "42.fdf");
+	free(map.points);
+	map_parsing(&map, "50-4.fdf");
+	free(map.points);
+	map_parsing(&map, "100-6.fdf");
+	free(map.points);
+	map_parsing(&map, "basictest.fdf");
+	free(map.points);
+	map_parsing(&map, "elem-col.fdf");
+	free(map.points);
+	map_parsing(&map, "elem-fract.fdf");
+	free(map.points);
+	map_parsing(&map, "elem.fdf");
+	free(map.points);
+	map_parsing(&map, "elem2.fdf");
+	free(map.points);
+	map_parsing(&map, "julia.fdf");
+	free(map.points);
+	map_parsing(&map, "mars.fdf");
+	free(map.points);
+	map_parsing(&map, "pentenegpos.fdf");
+	free(map.points);
+	map_parsing(&map, "plat.fdf");
+	free(map.points);
+	map_parsing(&map, "pnp_flat.fdf");
+	free(map.points);
+	map_parsing(&map, "pylone.fdf");
+	free(map.points);
+	map_parsing(&map, "pyra.fdf");
+	free(map.points);
+	map_parsing(&map, "pyramide.fdf");
+	free(map.points);
+	map_parsing(&map, "t1.fdf");
+	free(map.points);
+	map_parsing(&map, "t2.fdf");
 	int c = 0;
 	while (c < map.height * map.width)
 	{
 		printf("xyz color:%i: %f, %f, %f, %i \n", c,  map.points[c].x, map.points[c].y, map.points[c].z, map.points[c].color);
 		c++;
 	}
+	free(map.points);
+	return 0;
 }

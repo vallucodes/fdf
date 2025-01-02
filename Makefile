@@ -1,10 +1,11 @@
 NAME		= Game
-CFLAGS		= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS		= -Wextra -Wall -Werror -Wunreachable-code -g -Ofast
 LIBMLX		= ./lib/MLX42
+GNL			= ./src/gnl
 OBJ_DIR		= obj/
 SRC_DIR		= src/
 
-HEADERS		= -I ./include -I $(LIBMLX)/include
+HEADERS		= -I ./include -I $(LIBMLX)/include -I $(GNL)
 LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS		= $(shell find src -iname "*.c" | sed 's|^\./||')
 OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
