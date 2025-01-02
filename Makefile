@@ -1,5 +1,5 @@
 NAME		= Game
-CFLAGS		= -Wextra -Wall -Werror -Wunreachable-code -g -Ofast
+CFLAGS		= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX		= ./lib/MLX42
 GNL			= ./src/gnl
 OBJ_DIR		= obj/
