@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/02 16:41:49 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 14:38:18 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	scale(Map *map)
 	{
 		map->points[i].x *= SCALE;
 		map->points[i].y *= SCALE;
-		map->points[i].z *= SCALE;
+		// map->points[i].z *= SCALE;
 		i++;
 	}
 }
@@ -81,7 +81,7 @@ void	translate(Map *map)
 	while (i < map->size)
 	{
 		map->points[i].x += WIDTH / 2;
-		map->points[i].y += HEIGHT / 3;
+		map->points[i].y += HEIGHT / 40;
 		i++;
 	}
 }

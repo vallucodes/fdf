@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/02 16:42:02 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 14:37:48 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h> //open file
 #include <unistd.h>
 
-# define SCALE 30
+# define SCALE 2
 # define WIDTH 2000
 # define HEIGHT 1500
 
@@ -100,10 +100,11 @@ void	translate(Map *map);
 
 //drawing
 void	draw_line(int32_t *pixels, int width, Draw start_end);
-void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map, Colors *cl);
+void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map);
 
 //Colors
-uint32_t	interpolate_color(Draw cl, float t);
+uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
+void		set_colors(Map *map, Colors *cl);
 
 //small_operations
 void	ft_round(Map *map);
@@ -118,7 +119,5 @@ void	clear_fd(int fd);
 int		get_height(int fd);
 int		get_width(int fd);
 int		map_parsing(Map *map, char *av);
-
-
 
 #endif

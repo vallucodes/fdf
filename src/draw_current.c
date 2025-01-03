@@ -6,47 +6,25 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2024/12/27 14:35:55 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 14:18:59 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	initialize_colors(Draw *start_end, Point *point1, Point *point2, Colors *cl)
-{
-	if (point1->elevated == 1 && point2->elevated == 1)
-	{
-		start_end->c1 = cl->elevated;
-		start_end->c2 = cl->elevated;
-	}
-	else if (point1->elevated == 1)
-	{
-		start_end->c1 = cl->elevated;
-		start_end->c2 = cl->non_elevated;
-	}
-	else if (point2->elevated == 1)
-	{
-		start_end->c1 = cl->non_elevated;
-		start_end->c2 = cl->elevated;
-	}
-	else
-	{
-		start_end->c1 = cl->non_elevated;
-		start_end->c2 = cl->non_elevated;
-	}
-}
-static void	initialize_points(Draw *start_end, Point *point1, Point *point2, Colors *cl)
+static void	initialize_points(Draw *start_end, Point *point1, Point *point2)
 {
 	start_end->x1 = point1->x;
 	start_end->y1 = point1->y;
 	start_end->z1 = point1->z;
+	start_end->c1 = point1->color;
 	start_end->x2 = point2->x;
 	start_end->y2 = point2->y;
 	start_end->z2 = point2->z;
-	initialize_colors(start_end, point1, point2, cl);
+	start_end->c2 = point2->color;
 }
 
-void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map, Colors *cl)
+void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map)
 {
 	int		i;
 	int		j;
@@ -62,12 +40,12 @@ void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map, Colors *cl)
 		{
 			if (i < (map->width - 1))
 			{
-				initialize_points(&start_end, &map->points[c], &map->points[c + 1] , cl);
+				initialize_points(&start_end, &map->points[c], &map->points[c + 1]);
 				draw_line(pixels, img->width, start_end);
 			}
 			if (j < (map->height - 1))
 			{
-				initialize_points(&start_end, &map->points[c], &map->points[c + map->width], cl);
+				initialize_points(&start_end, &map->points[c], &map->points[c + map->width]);
 				draw_line(pixels, img->width, start_end);
 			}
 			c++;

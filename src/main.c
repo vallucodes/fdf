@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/02 16:30:39 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 14:20:07 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ int32_t	main(int ac, char **av)
 	Map map;
 	Angle an;
 	Colors cl;
+
 	if (ac == 2)
 		map_parsing(&map, av[1]);
-	set_elevation(&map); // under work right now
+	set_elevation(&map);
 	print_result(&map);
-	// show_parsed_data(&map);
+	define_colors(&cl);
+	set_colors(&map, &cl);
+	print_result(&map);
 	// Create and display the image.
 	int width = WIDTH;
 	int height = HEIGHT;
@@ -57,7 +60,6 @@ int32_t	main(int ac, char **av)
 	int32_t* pixels = (int32_t*)img->pixels;
 
 	define_angles(&an);
-	define_colors(&cl);
 	print_result(&map);
 	scale(&map);
 
@@ -68,7 +70,7 @@ int32_t	main(int ac, char **av)
 	translate(&map);
 	print_result(&map);
 	ft_round(&map);
-	draw_current_state(pixels, img, &map, &cl);
+	draw_current_state(pixels, img, &map);
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
