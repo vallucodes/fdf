@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:20:07 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:05:37 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,23 @@ static void ft_error(void)
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
 
+
+// align to center is under work.
+void	align_to_center(Map *map)
+{
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+
+	find_highest(map->points, map->size, get_x);
+	find_lowest(map->points, map->size, get_x);
+	find_highest(map->points, map->size, get_y);
+	find_lowest(map->points, map->size, get_y);
+
+
+}
+
 int32_t	main(int ac, char **av)
 {
 
@@ -46,10 +63,8 @@ int32_t	main(int ac, char **av)
 	if (ac == 2)
 		map_parsing(&map, av[1]);
 	set_elevation(&map);
-	print_result(&map);
 	define_colors(&cl);
 	set_colors(&map, &cl);
-	print_result(&map);
 	// Create and display the image.
 	int width = WIDTH;
 	int height = HEIGHT;
@@ -60,14 +75,16 @@ int32_t	main(int ac, char **av)
 	int32_t* pixels = (int32_t*)img->pixels;
 
 	define_angles(&an);
-	print_result(&map);
+	// print_result(&map);
 	scale(&map);
 
 	rotation_X(&map, an.angle_x);
 	rotation_Y(&map, an.angle_y);
 	rotation_Z(&map, an.angle_z);
 
+	align_to_center(&map); // under work
 	translate(&map);
+
 	print_result(&map);
 	ft_round(&map);
 	draw_current_state(pixels, img, &map);

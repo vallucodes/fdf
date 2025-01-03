@@ -6,11 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:08:58 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:09:12 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:45:38 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+typedef float (*PointAccessor)(Point *point);
+
 
 static int	is_all_set(Map *map)
 {
@@ -26,33 +28,48 @@ static int	is_all_set(Map *map)
 	return (1);
 }
 
-static int	find_lowest(Map *map)
+float	get_x(Point *point)
+{
+	return (point->x);
+}
+
+float	get_y(Point *point)
+{
+	return (point->y);
+}
+
+float	get_z(Point *point)
+{
+	return (point->z);
+}
+
+int	find_lowest(Point *points, int size, PointAccessor accessor)
 {
 	int		i;
 	float	nb;
 
 	i = 1;
-	nb = map->points[0].z;
-	while(i < map->size)
+	nb = accessor(&points[0]);
+	while(i < size)
 	{
-		if (nb > map->points[i].z)
-			nb = map->points[i].z;
+		if (nb > accessor(&points[i]))
+			nb = accessor(&points[i]);
 		i++;
 	}
 	return (nb);
 }
 
-static int	find_highest(Map *map)
+int	find_highest(Point *points, int size, PointAccessor accessor)
 {
 	int		i;
 	float	nb;
 
 	i = 1;
-	nb = map->points[0].z;
-	while(i < map->size)
+	nb = accessor(&points[0]);
+	while(i < size)
 	{
-		if (nb < map->points[i].z)
-			nb = map->points[i].z;
+		if (nb < accessor(&points[i]))
+			nb = accessor(&points[i]);
 		i++;
 	}
 	return (nb);
@@ -83,8 +100,8 @@ void	set_colors(Map *map, Colors *cl)
 	highest = map->points[0].z;
 	if(is_all_set(map))
 		return ;
-	lowest = find_lowest(map);
-	highest = find_highest(map);
+	lowest = find_lowest(map->points, map->size, get_z);
+	highest = find_highest(map->points, map->size, get_z);
 	printf("high: %i\n", highest);
 	printf("low: %i\n", lowest);
 	write_colors(map, lowest, highest, cl);

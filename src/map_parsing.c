@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/02 16:21:39 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 14:48:24 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// everything works now nicely. Need to split populate_map2 function into smaller functions. error handling not checked properly
+// error handling not checked properly. Need to modify GNL to know if NULL is due to malloc fail or not
 
 # include "fdf.h"
 

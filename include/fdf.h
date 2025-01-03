@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:37:48 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:48:54 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h> //open file
 #include <unistd.h>
 
-# define SCALE 2
+# define SCALE 35
 # define WIDTH 2000
 # define HEIGHT 1500
 
@@ -86,6 +86,8 @@ typedef struct {
 	int max_height;
 }		Map;
 
+typedef float (*PointAccessor)(Point *point);
+
 //initiate
 void	set_elevation(Map *map);
 void	define_angles(Angle *an);
@@ -109,6 +111,11 @@ void		set_colors(Map *map, Colors *cl);
 //small_operations
 void	ft_round(Map *map);
 void	print_result(Map *map);
+float	get_x(Point *point);
+float	get_y(Point *point);
+float	get_z(Point *point);
+int		find_highest(Point *points, int size, PointAccessor accessor);
+int		find_lowest(Point *points, int size, PointAccessor accessor);
 
 //map parsing
 int		is_num(char c);
