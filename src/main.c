@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 16:05:37 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:43:26 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,6 @@ static void ft_error(void)
 
 // 	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
 // }
-
-
-// align to center is under work.
-void	align_to_center(Map *map)
-{
-	int	x1;
-	int	y1;
-	int	x2;
-	int	y2;
-
-	find_highest(map->points, map->size, get_x);
-	find_lowest(map->points, map->size, get_x);
-	find_highest(map->points, map->size, get_y);
-	find_lowest(map->points, map->size, get_y);
-
-
-}
 
 int32_t	main(int ac, char **av)
 {
@@ -82,10 +65,12 @@ int32_t	main(int ac, char **av)
 	rotation_Y(&map, an.angle_y);
 	rotation_Z(&map, an.angle_z);
 
-	align_to_center(&map); // under work
-	translate(&map);
-
 	print_result(&map);
+	align_to_center(&map);
+	// automatic_scale(&map);
+	print_result(&map);
+	// translate(&map);
+
 	ft_round(&map);
 	draw_current_state(pixels, img, &map);
 

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 15:48:54 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:41:48 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <fcntl.h> //open file
 #include <unistd.h>
 
-# define SCALE 35
-# define WIDTH 2000
-# define HEIGHT 1500
+# define SCALE 20
+# define WIDTH 1400
+# define HEIGHT 1000
 
 typedef struct {
 	uint32_t non_elevated;
@@ -126,5 +126,8 @@ void	clear_fd(int fd);
 int		get_height(int fd);
 int		get_width(int fd);
 int		map_parsing(Map *map, char *av);
+
+//autostuff
+void	align_to_center(Map *map);
 
 #endif
