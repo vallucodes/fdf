@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 12:38:07 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:29:16 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	scale(Map *map)
 	{
 		map->points[i].x *= SCALE;
 		map->points[i].y *= SCALE;
-		map->points[i].z *= SCALE;
+		if (map->points[0].huge == 0)
+			map->points[i].z *= SCALE;
 		i++;
 	}
 }

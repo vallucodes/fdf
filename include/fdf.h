@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 12:41:48 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:01:10 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <fcntl.h> //open file
 #include <unistd.h>
 
-# define SCALE 20
+# define SCALE 100
 # define WIDTH 1400
-# define HEIGHT 1000
+# define HEIGHT 800
 
 typedef struct {
 	uint32_t non_elevated;
@@ -74,7 +74,7 @@ typedef struct {
 	float x;
 	float y;
 	float z;
-	int elevated;
+	int huge;
 	uint32_t color;
 }		Point;
 

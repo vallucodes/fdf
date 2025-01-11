@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:43 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:08:53 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:09:50 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_result(Map *map)
 		printf("%f ", map->points[i].y);
 		printf("%f ", map->points[i].z);
 		printf("%X ", map->points[i].color);
-		printf("%i\n", map->points[i].elevated);
+		printf("%i\n", map->points[i].huge);
 		i++;
 	}
 	printf("----------------------------------------------\n");

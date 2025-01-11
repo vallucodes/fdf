@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:48:24 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:27:32 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // error handling not checked properly. Need to modify GNL to know if NULL is due to malloc fail or not
 
-# include "fdf.h"
+#include "fdf.h"
 
 static void	parse_row(Map *map, char *arr, int *c, int *i)
 {
