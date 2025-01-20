@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/20 15:57:15 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:25:54 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static void ft_error(void)
 // 	printf("actual point: %f\n", map->points[0].x);
 // }
 
-void	reset_background(int32_t* pixels)
+void	reset_background(int32_t* pixels, t_fdf *fdf)
 {
 	int i = 0;
 
 	while (i < WIDTH*HEIGHT)
 	{
-		pixels[i] = 0;
+		pixels[i] = fdf->cl.background;
 		i++;
 	}
 }
@@ -57,7 +57,7 @@ void key_hook(mlx_key_data_t keydata, void *param)
 		// if (!img || (mlx_image_to_window(fdf->mlx, img, 0, 0) < 0))
 		// 	ft_error();
 		// fdf->img = img;
-		reset_background((int32_t*)fdf->img->pixels);
+		reset_background((int32_t*)fdf->img->pixels, fdf);
 		draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
 	}
 }
@@ -88,12 +88,14 @@ int32_t	main(int ac, char **av)
 	t_angle an;
 	t_colors cl;
 
+
 	if (ac == 2)
 		map_parsing(&map, av[1]);
 	// set_elevation(&map);
 
 	define_colors(&cl);
 	set_colors(&map, &cl);
+	fdf.cl = cl;
 	// Create and display the image.
 	int width = WIDTH;
 	int height = HEIGHT;

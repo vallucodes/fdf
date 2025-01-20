@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/20 15:33:33 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:33:14 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h> //printf
 # include <math.h> // math
 # include <fcntl.h> //open file
-#include <unistd.h>
+# include <unistd.h>
 
 # define SCALE 100
 # define WIDTH 1400
@@ -28,6 +28,7 @@
 typedef struct s_colors{
 	uint32_t non_elevated;
 	uint32_t elevated;
+	uint32_t background;
 }		t_colors;
 
 typedef struct s_color{
@@ -92,6 +93,7 @@ typedef struct s_fdf{
 	t_map *map;
 	mlx_image_t *img;
 	mlx_t*	mlx;
+	t_colors cl;
 }		t_fdf;
 
 typedef float (*PointAccessor)(t_point *point);

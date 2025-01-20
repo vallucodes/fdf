@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/20 12:25:57 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:28:58 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ void	define_angles(t_angle *an)
 	an->angle_z = M_PI/5;
 }
 
+// 0xAABBGGRR
 void	define_colors(t_colors *cl)
 {
 	cl->non_elevated = 0xFF;
 	cl->elevated = 0xFF00;
+	cl->background = 0x20FF0000;
 }
 
