@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 20:29:16 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:22:59 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rotation_X(Map *map, double theta)
+void	rotation_X(t_map *map, double theta)
 {
 	int i;
 	int temp;
@@ -28,7 +28,7 @@ void	rotation_X(Map *map, double theta)
 	}
 }
 
-void	rotation_Y(Map *map, double theta)
+void	rotation_Y(t_map *map, double theta)
 {
 	int i;
 	int temp;
@@ -44,7 +44,7 @@ void	rotation_Y(Map *map, double theta)
 	}
 }
 
-void	rotation_Z(Map *map, double theta)
+void	rotation_Z(t_map *map, double theta)
 {
 	int i;
 	int temp;
@@ -59,7 +59,7 @@ void	rotation_Z(Map *map, double theta)
 		i++;
 	}
 }
-void	scale(Map *map)
+void	scale(t_map *map)
 {
 	int i;
 
@@ -68,13 +68,12 @@ void	scale(Map *map)
 	{
 		map->points[i].x *= SCALE;
 		map->points[i].y *= SCALE;
-		if (map->points[0].huge == 0)
-			map->points[i].z *= SCALE;
+		map->points[i].z *= SCALE / 2;
 		i++;
 	}
 }
 
-void	translate(Map *map)
+void	translate(t_map *map)
 {
 	int	i;
 

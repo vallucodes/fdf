@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:18:59 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:29:02 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	initialize_points(Draw *start_end, Point *point1, Point *point2)
+static void	initialize_points(t_draw *start_end, t_point *point1, t_point *point2)
 {
 	start_end->x1 = point1->x;
 	start_end->y1 = point1->y;
@@ -24,12 +24,12 @@ static void	initialize_points(Draw *start_end, Point *point1, Point *point2)
 	start_end->c2 = point2->color;
 }
 
-void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map)
+void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map)
 {
 	int		i;
 	int		j;
 	int		c;
-	Draw	start_end;
+	t_draw	start_end;
 
 	j = -1;
 	c = 0;

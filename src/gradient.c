@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:23:59 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/03 14:09:29 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:29:30 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	is_little_endian()
 	return 0;
 }
 
-static void	color_to_rgba(uint32_t color, Color *c, int i)
+static void	color_to_rgba(uint32_t color, t_color *c, int i)
 {
 	c->a[i] = (color >> 24) & 0xFF;
 	c->r[i] = (color >> 16) & 0xFF;
@@ -36,7 +36,7 @@ static void	color_to_rgba(uint32_t color, Color *c, int i)
 
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t)
 {
-	Color c;
+	t_color c;
 
 	color_to_rgba(c1, &c, 0);
 	color_to_rgba(c2, &c, 1);

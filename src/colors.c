@@ -6,15 +6,15 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:08:58 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 12:40:13 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:28:44 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-typedef float (*PointAccessor)(Point *point);
+typedef float (*PointAccessor)(t_point *point);
 
 
-static int	is_all_set(Map *map)
+static int	is_all_set(t_map *map)
 {
 	int i;
 
@@ -28,22 +28,22 @@ static int	is_all_set(Map *map)
 	return (1);
 }
 
-float	get_x(Point *point)
+float	get_x(t_point *point)
 {
 	return (point->x);
 }
 
-float	get_y(Point *point)
+float	get_y(t_point *point)
 {
 	return (point->y);
 }
 
-float	get_z(Point *point)
+float	get_z(t_point *point)
 {
 	return (point->z);
 }
 
-int	find_lowest(Point *points, int size, PointAccessor accessor)
+int	find_lowest(t_point *points, int size, PointAccessor accessor)
 {
 	int		i;
 	float	nb;
@@ -59,7 +59,7 @@ int	find_lowest(Point *points, int size, PointAccessor accessor)
 	return (nb);
 }
 
-int	find_highest(Point *points, int size, PointAccessor accessor)
+int	find_highest(t_point *points, int size, PointAccessor accessor)
 {
 	int		i;
 	float	nb;
@@ -75,7 +75,7 @@ int	find_highest(Point *points, int size, PointAccessor accessor)
 	return (nb);
 }
 
-static void	write_colors(Map *map, int low, int high, Colors *cl)
+static void	write_colors(t_map *map, int low, int high, t_colors *cl)
 {
 	int			i;
 	float		t;
@@ -91,7 +91,7 @@ static void	write_colors(Map *map, int low, int high, Colors *cl)
 	}
 }
 
-void	set_colors(Map *map, Colors *cl)
+void	set_colors(t_map *map, t_colors *cl)
 {
 	int			lowest;
 	int			highest;
@@ -102,7 +102,7 @@ void	set_colors(Map *map, Colors *cl)
 		return ;
 	lowest = find_lowest(map->points, map->size, get_z);
 	highest = find_highest(map->points, map->size, get_z);
-	printf("high: %i\n", highest);
-	printf("low: %i\n", lowest);
+	// printf("high: %i\n", highest);
+	// printf("low: %i\n", lowest);
 	write_colors(map, lowest, highest, cl);
 }

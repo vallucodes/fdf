@@ -6,15 +6,15 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 20:27:32 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:07:16 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // error handling not checked properly. Need to modify GNL to know if NULL is due to malloc fail or not
 
 #include "fdf.h"
-
-static void	parse_row(Map *map, char *arr, int *c, int *i)
+#include <string.h>
+static void	parse_row(t_map *map, char *arr, int *c, int *i)
 {
 	int	j;
 
@@ -43,14 +43,15 @@ static void	parse_row(Map *map, char *arr, int *c, int *i)
 	}
 }
 
-static int	populate_map(Map *map, int fd)
+static int	populate_map(t_map *map, int fd)
 {
 	int		i;
 	int		c;
 	char	*arr;
 
 	map->size = map->width * map->height;
-	map->points = malloc(map->size * sizeof(Point));
+	map->points = malloc(map->size * sizeof(t_point));
+	memset(map->points, 0, sizeof(t_point));
 	if(!map->points)
 		return (0);
 	c = 0;
@@ -68,7 +69,7 @@ static int	populate_map(Map *map, int fd)
 	return (1);
 }
 
-static int	load_data(Map *map, int *fd)
+static int	load_data(t_map *map, int *fd)
 {
 	map->height = get_height(fd[0]);
 	map->width = get_width(fd[1]);
@@ -85,7 +86,7 @@ static int	*open_file(char *map_name, int *fd)
 	return (fd);
 }
 
-int	map_parsing(Map *map, char *av)
+int	map_parsing(t_map *map, char *av)
 {
 	int fd[3];
 

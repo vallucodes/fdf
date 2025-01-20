@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 21:01:10 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:33:33 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 # define WIDTH 1400
 # define HEIGHT 800
 
-typedef struct {
+typedef struct s_colors{
 	uint32_t non_elevated;
 	uint32_t elevated;
-}		Colors;
+}		t_colors;
 
-typedef struct {
+typedef struct s_color{
 	uint8_t r[2];
 	uint8_t g[2];
 	uint8_t b[2];
@@ -39,9 +39,9 @@ typedef struct {
 	uint8_t r_ip;
 	uint8_t g_ip;
 	uint8_t b_ip;
-}		Color;
+}		t_color;
 
-typedef struct {
+typedef struct s_linevars{
 	int sx;
 	int dx;
 	int sy;
@@ -51,9 +51,9 @@ typedef struct {
 	int err;
 	int e2;
 	float t;
-}		LineVars;
+}		t_linevars;
 
-typedef struct {
+typedef struct s_draw{
 	int x1;
 	int y1;
 	int z1;
@@ -62,60 +62,68 @@ typedef struct {
 	int z2;
 	uint32_t c1;
 	uint32_t c2;
-}		Draw;
+}		t_draw;
 
-typedef struct {
+typedef struct s_angle{
 	float angle_x;
 	float angle_y;
 	float angle_z;
-}		Angle;
+}		t_angle;
 
-typedef struct {
+typedef struct s_point{
 	float x;
 	float y;
 	float z;
 	int huge;
 	uint32_t color;
-}		Point;
+}		t_point;
 
-typedef struct {
-	Point *points;
+typedef struct s_map{
+	t_point *points;
 	int size;
 	int width;
 	int height;
 	int max_height;
-}		Map;
+	float x_offset;
+	float y_offset;
+}		t_map;
 
-typedef float (*PointAccessor)(Point *point);
+typedef struct s_fdf{
+	t_map *map;
+	mlx_image_t *img;
+	mlx_t*	mlx;
+}		t_fdf;
+
+typedef float (*PointAccessor)(t_point *point);
 
 //initiate
-void	set_elevation(Map *map);
-void	define_angles(Angle *an);
-void	define_colors(Colors *cl);
+void	set_elevation(t_map *map);
+void	define_angles(t_angle *an);
+void	define_colors(t_colors *cl);
 
 //operators
-void	rotation_X(Map *map, double theta);
-void	rotation_Y(Map *map, double theta);
-void	rotation_Z(Map *map, double theta);
-void	scale(Map *map);
-void	translate(Map *map);
+void	rotation_X(t_map *map, double theta);
+void	rotation_Y(t_map *map, double theta);
+void	rotation_Z(t_map *map, double theta);
+void	scale(t_map *map);
+void	translate(t_map *map);
 
 //drawing
-void	draw_line(int32_t *pixels, int width, Draw start_end);
-void	draw_current_state(int32_t *pixels, mlx_image_t* img, Map *map);
+void	draw_line(int32_t *pixels, int width, t_draw start_end);
+void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map);
 
 //Colors
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
-void		set_colors(Map *map, Colors *cl);
+void		set_colors(t_map *map, t_colors *cl);
 
 //small_operations
-void	ft_round(Map *map);
-void	print_result(Map *map);
-float	get_x(Point *point);
-float	get_y(Point *point);
-float	get_z(Point *point);
-int		find_highest(Point *points, int size, PointAccessor accessor);
-int		find_lowest(Point *points, int size, PointAccessor accessor);
+void	ft_round(t_map *map);
+void	print_result(t_map *map);
+float	get_x(t_point *point);
+float	get_y(t_point *point);
+float	get_z(t_point *point);
+int		find_highest(t_point *points, int size, PointAccessor accessor);
+int		find_lowest(t_point *points, int size, PointAccessor accessor);
 
 //map parsing
 int		is_num(char c);
@@ -125,9 +133,10 @@ int32_t	ft_atoi_base(char *str, int base);
 void	clear_fd(int fd);
 int		get_height(int fd);
 int		get_width(int fd);
-int		map_parsing(Map *map, char *av);
+int		map_parsing(t_map *map, char *av);
 
 //autostuff
-void	align_to_center(Map *map);
+void	align_to_center(t_map *map);
+void	automatic_scale(t_map *map);
 
 #endif

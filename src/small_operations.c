@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:43 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/04 19:09:50 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:03:45 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_round(Map *map)
+void	ft_round(t_map *map)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void	ft_round(Map *map)
 	}
 }
 
-void	print_result(Map *map)
+void	print_result(t_map *map)
 {
 	int i = 0;
 	while (i < map->size)

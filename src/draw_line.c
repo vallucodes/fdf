@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/17 11:54:12 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:40:07 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	sy(int y1, int y2)
 	else
 		return (1);
 }
-static void	initiate_vars(LineVars *vars, Draw start_end)
+static void	initiate_vars(t_linevars *vars, t_draw start_end)
 {
 	vars->dx = abs(start_end.x2 - start_end.x1);
 	vars->dy = abs(start_end.y2 - start_end.y1);
@@ -38,9 +38,9 @@ static void	initiate_vars(LineVars *vars, Draw start_end)
 	vars->dz = 1.0 / vars->steps;
 	vars->t = 0;
 }
-void	draw_line(int32_t *pixels, int width, Draw start_end)
+void	draw_line(int32_t *pixels, int width, t_draw start_end)
 {
-	LineVars		vars;
+	t_linevars		vars;
 	unsigned int	color;
 
 	initiate_vars(&vars, start_end);
