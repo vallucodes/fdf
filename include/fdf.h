@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/20 16:33:14 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:39:22 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,11 @@ typedef struct s_map{
 }		t_map;
 
 typedef struct s_fdf{
-	t_map *map;
-	mlx_image_t *img;
-	mlx_t*	mlx;
-	t_colors cl;
+	t_map		*map;
+	mlx_image_t	*img;
+	mlx_t*		mlx;
+	t_colors	cl;
+	t_angle		an;
 }		t_fdf;
 
 typedef float (*PointAccessor)(t_point *point);

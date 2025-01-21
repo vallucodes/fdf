@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/21 10:42:01 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/21 10:09:37 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ void key_hook(mlx_key_data_t keydata, void *param)
 	}
 }
 
-void	draw_hook(void *param) // under work, trying to implement rotations
+void	draw_hook(void *param)
 {
 	t_fdf *fdf = (t_fdf *)param;
 	reset_background((int32_t*)fdf->img->pixels, fdf);
 	draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
-	// rotation_X(&fdf->map, an.angle_x);
-	// rotation_Y(&fdf->map, an.angle_y);
-	// rotation_Z(&fdf->map, an.angle_z);
 }
 
 // void	print_pixels(int32_t* pixels)
@@ -84,30 +81,31 @@ int32_t	main(int ac, char **av)
 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
 	if (!mlx)
 		ft_error();
-	mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-		ft_error();
 
 	t_fdf fdf;
 	t_map map;
-
+	fdf.map = &map;
 	t_angle an;
 	t_colors cl;
-	fdf.map = &map;
-	fdf.img = img;
 
 
 	if (ac == 2)
 		map_parsing(&map, av[1]);
 	// set_elevation(&map);
-	define_colors(&cl);
-	fdf.cl = cl;
-	set_colors(&map, &cl);
 
+	define_colors(&cl);
+	set_colors(&map, &cl);
+	fdf.cl = cl;
+	// Create and display the image.
+	int width = WIDTH;
+	int height = HEIGHT;
+	mlx_image_t* img = mlx_new_image(mlx, width, height);
+	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+		ft_error();
+	fdf.img = img;
 	int32_t* pixels = (int32_t*)img->pixels;
 
 	define_angles(&an);
-	fdf.an = an;
 	// print_result(&map);
 	scale(&map);
 
@@ -129,7 +127,7 @@ int32_t	main(int ac, char **av)
 	// mlx_loop_hook(mlx, &ft_hook, NULL);
 
 	mlx_key_hook(mlx, &key_hook, &fdf);
-	mlx_loop_hook(mlx, &draw_hook, &fdf); // under work
+	mlx_loop_hook(mlx, &draw_hook, &fdf);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	// printf("this %f \n", map.points[0].x);
