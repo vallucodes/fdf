@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/21 10:42:01 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:07:07 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ void key_hook(mlx_key_data_t keydata, void *param)
 			i++;
 		}
 	}
+	if (keydata.key == MLX_KEY_I && keydata.action == MLX_PRESS)
+	{
+		fdf->an.angle_x = 0.05;
+		rotation_X(fdf->map, fdf->an.angle_x);
+	}
+	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
+	{
+		fdf->an.angle_y = 0.05;
+		rotation_Y(fdf->map, fdf->an.angle_y);
+	}
+	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
+	{
+		fdf->an.angle_z = 0.05;
+		rotation_Z(fdf->map, fdf->an.angle_z);
+	}
 }
 
 void	draw_hook(void *param) // under work, trying to implement rotations
@@ -60,9 +75,6 @@ void	draw_hook(void *param) // under work, trying to implement rotations
 	t_fdf *fdf = (t_fdf *)param;
 	reset_background((int32_t*)fdf->img->pixels, fdf);
 	draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
-	// rotation_X(&fdf->map, an.angle_x);
-	// rotation_Y(&fdf->map, an.angle_y);
-	// rotation_Z(&fdf->map, an.angle_z);
 }
 
 // void	print_pixels(int32_t* pixels)

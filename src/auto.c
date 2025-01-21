@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 12:39:46 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/21 09:54:07 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:10:21 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,12 @@ void	automatic_scale(t_map *map)
 	dx = x2 - x1;
 	dy = y2 - y1;
 
-	// printf("dx dy dz: %f, %f, %f\n", dx, dy, dz);
-	SCALE_Y = (HEIGHT - 100) / dy;
-	SCALE_X = (WIDTH - 100) / dx;
+	SCALE_Y = (HEIGHT - 300) / dy;
+	SCALE_X = (WIDTH - 300) / dx;
 	if (SCALE_X < SCALE_Y)
 		SCA = SCALE_X;
 	else
 		SCA = SCALE_Y;
-	// printf("SCA: %f\n", SCA);
-	i = 0;
 
 	i = 0;
 	while (i < map->size)
