@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/22 16:02:03 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:40:24 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,17 @@ void	draw_hook(void *param) // under work, trying to implement rotations
 // 	}
 // }
 
-void	draw(t_map *map) // rotations under the work. Just finished them, thinking if i should change to go like this one point at the time or have loops inside here.
-//maby copy this and create based on what is in src4 to work with all points for each operator call.
-{
-	t_point *original;
-	t_point *new;
+// void	draw(t_map *map)
+// {
+// 	t_point *original;
+// 	t_point *new3d;
 
-	original = &map->points;
-	new->x = original->x;
-	new->y = original->y;
-	new->z = original->z;
+// 	original = &map->points;
 
-	rotation_X(&new->y, &new->z, map->angle_x);
-	rotation_Y(&new->x, &new->z, map->angle_y);
-	rotation_Z(&new->x, &new->y, map->angle_z);
-}
+// 	rotation_X(&map, map.angle_x);
+// 	rotation_Y(&map, map.angle_y);
+// 	rotation_Z(&map, map.angle_z);
+// }
 
 void	initiate_values_map(t_map *map)
 {
@@ -145,10 +141,10 @@ int32_t	main(int ac, char **av)
 
 	// print_result(&map);
 	// scale(&map);
-	draw(&map);
-	// rotation_X(&map, map.angle_x);
-	// rotation_Y(&map, map.angle_y);
-	// rotation_Z(&map, map.angle_z);
+
+	rotation_X(&map, map.angle_x);
+	rotation_Y(&map, map.angle_y);
+	rotation_Z(&map, map.angle_z);
 
 	// print_result(&map);
 	// automatic_scale(&map);

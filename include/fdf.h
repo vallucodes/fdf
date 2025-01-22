@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/21 10:39:22 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:56:48 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define SCALE 100
 # define WIDTH 1400
-# define HEIGHT 800
+# define HEIGHT 1000
 
 typedef struct s_colors{
 	uint32_t non_elevated;
@@ -65,17 +65,10 @@ typedef struct s_draw{
 	uint32_t c2;
 }		t_draw;
 
-typedef struct s_angle{
-	float angle_x;
-	float angle_y;
-	float angle_z;
-}		t_angle;
-
 typedef struct s_point{
 	float x;
 	float y;
 	float z;
-	int huge;
 	uint32_t color;
 }		t_point;
 
@@ -87,27 +80,30 @@ typedef struct s_map{
 	int max_height;
 	float x_offset;
 	float y_offset;
+	float angle_x;
+	float angle_y;
+	float angle_z;
+	int		z_scale;
 }		t_map;
 
 typedef struct s_fdf{
 	t_map		*map;
 	mlx_image_t	*img;
-	mlx_t*		mlx;
+	mlx_t		*mlx;
 	t_colors	cl;
-	t_angle		an;
 }		t_fdf;
 
 typedef float (*PointAccessor)(t_point *point);
 
 //initiate
 void	set_elevation(t_map *map);
-void	define_angles(t_angle *an);
+// void	define_angles(t_angle *an);
 void	define_colors(t_colors *cl);
 
 //operators
-void	rotation_X(t_map *map, double theta);
-void	rotation_Y(t_map *map, double theta);
-void	rotation_Z(t_map *map, double theta);
+void	rotation_X(float *y, float *z, float theta)
+void	rotation_Y(float *x, float *z, float theta)
+void	rotation_Z(float *x, float *x, float theta)
 void	scale(t_map *map);
 void	translate(t_map *map);
 

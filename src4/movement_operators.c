@@ -6,38 +6,58 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/22 15:57:36 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:22:59 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rotation_X(float *y, float *z, float theta)
+void	rotation_X(t_map *map, double theta)
 {
+	int i;
 	int temp;
 
-	temp = *y;
-	(*y) = (temp * cos(theta) - (*z) * sin(theta));
-	(*z) = (temp * sin(theta) + (*z) * cos(theta));
+	temp = 0;
+	i = 0;
+	while (i < map->size)
+	{
+		temp = map->points[i].y;
+		map->points[i].y = (temp * cos(theta) - map->points[i].z * sin(theta));
+		map->points[i].z = (temp * sin(theta) + map->points[i].z * cos(theta));
+		i++;
+	}
 }
 
-void	rotation_Y(float *x, float *z, float theta)
+void	rotation_Y(t_map *map, double theta)
 {
+	int i;
 	int temp;
 
-	temp = (*x);
-	(*x) = (temp * cos(theta) + (*z) * -sin(theta));
-	(*z) = (temp * sin(theta) + (*z) * cos(theta));
+	temp = 0;
+	i = 0;
+	while (i < map->size)
+	{
+		temp = map->points[i].x;
+		map->points[i].x = (temp * cos(theta) + map->points[i].z * -sin(theta));
+		map->points[i].z = (temp * sin(theta) + map->points[i].z * cos(theta));
+		i++;
+	}
 }
 
-void	rotation_Z(float *x, float *y, float theta)
+void	rotation_Z(t_map *map, double theta)
 {
+	int i;
 	int temp;
 
-	temp = (*x);
-	(*x) = (temp * cos(theta) - (*y) * sin(theta));
-	(*y) = (temp * sin(theta) + (*y) * cos(theta));
-
+	temp = 0;
+	i = 0;
+	while (i < map->size)
+	{
+		temp = map->points[i].x;
+		map->points[i].x = (temp * cos(theta) - map->points[i].y * sin(theta));
+		map->points[i].y = (temp * sin(theta) + map->points[i].y * cos(theta));
+		i++;
+	}
 }
 void	scale(t_map *map)
 {
