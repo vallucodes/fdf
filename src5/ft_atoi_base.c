@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:49:26 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 15:38:34 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:47:57 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+# include "fdf.h"
 
 int	is_space(char c)
 {

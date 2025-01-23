@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/22 15:56:48 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:58:26 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <unistd.h>
 
 # define SCALE 100
-# define WIDTH 1400
-# define HEIGHT 1000
+# define WIDTH 2500
+# define HEIGHT 1500
 
 typedef struct s_colors{
 	uint32_t non_elevated;
@@ -73,24 +73,26 @@ typedef struct s_point{
 }		t_point;
 
 typedef struct s_map{
-	t_point *points;
-	int size;
-	int width;
-	int height;
-	int max_height;
-	float x_offset;
-	float y_offset;
-	float angle_x;
-	float angle_y;
-	float angle_z;
-	int		z_scale;
+	t_point		*original;
+	t_point		*new2d;
+	t_colors	cl;
+	int			size;
+	int			width;
+	int			height;
+	int			max_height;
+	float		angle_x;
+	float		angle_y;
+	float		angle_z;
+	float		x_offset;
+	float		y_offset;
+	float		zoom;
+	int			z_scale;
 }		t_map;
 
 typedef struct s_fdf{
 	t_map		*map;
 	mlx_image_t	*img;
 	mlx_t		*mlx;
-	t_colors	cl;
 }		t_fdf;
 
 typedef float (*PointAccessor)(t_point *point);
@@ -101,9 +103,11 @@ void	set_elevation(t_map *map);
 void	define_colors(t_colors *cl);
 
 //operators
-void	rotation_X(float *y, float *z, float theta)
-void	rotation_Y(float *x, float *z, float theta)
-void	rotation_Z(float *x, float *x, float theta)
+void	rotation_X(t_map *map, float theta);
+void	rotation_Y(t_map *map, float theta);
+void	rotation_Z(t_map *map, float theta);
+void	isometric_rotation(t_map *map);
+void	scale_z(t_map *map);
 void	scale(t_map *map);
 void	translate(t_map *map);
 
@@ -113,11 +117,10 @@ void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map);
 
 //Colors
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
-void		set_colors(t_map *map, t_colors *cl);
+void		set_colors(t_map *map);
 
 //small_operations
 void	ft_round(t_map *map);
-void	print_result(t_map *map);
 float	get_x(t_point *point);
 float	get_y(t_point *point);
 float	get_z(t_point *point);
@@ -134,8 +137,12 @@ int		get_height(int fd);
 int		get_width(int fd);
 int		map_parsing(t_map *map, char *av);
 
-//autostuff
-void	align_to_center(t_map *map);
-void	automatic_scale(t_map *map);
+//operations
+void display_old_map(t_map *map);
+void display_new_map(t_map *map);
+void	print_result(t_map *map);
+void	copy_map(t_map *map);
+
+void create_isometric_view(t_map *map);
 
 #endif

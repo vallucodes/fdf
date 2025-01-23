@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 13:28:42 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:32:00 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map)
 	int		c;
 	t_draw	start_end;
 
+	display_new_map(map);
 	j = -1;
 	c = 0;
 	while(++j < map->height)
@@ -41,13 +42,16 @@ void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map)
 			if (i < (map->width - 1))
 			{
 				initialize_points(&start_end, &map->new2d[c], &map->new2d[c + 1]);
+				display_draw_state(&start_end);
 				draw_line(pixels, img->width, start_end);
 			}
 			if (j < (map->height - 1))
 			{
 				initialize_points(&start_end, &map->new2d[c], &map->new2d[c + map->width]);
+				display_draw_state(&start_end);
 				draw_line(pixels, img->width, start_end);
 			}
+			printf("point[%i] \n", c);
 			c++;
 		}
 	}

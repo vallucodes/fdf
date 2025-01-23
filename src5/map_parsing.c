@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:59:29 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:38:44 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	parse_row(t_map *map, char *arr, int *c)
 	int	interval;
 
 	j = 0;
-	y_interval = 220;
-	x_interval = 220;
-	interval = 50;
+	y_interval = 60;
+	x_interval = 60;
+	interval = 60;
 	while(arr[j] && arr[j] != '\n')
 	{
 		map->original[*c].z = ft_atoi_base(&arr[j], 10) * interval;
@@ -82,6 +82,7 @@ static int	populate_map(t_map *map, int fd)
 	map->size = map->width * map->height;
 	map->original = malloc(map->size * sizeof(t_point));
 	map->new2d = malloc(map->size * sizeof(t_point));
+	// memset(map->original, 0, sizeof(t_point));
 	if(!map->original || !map->new2d)
 		return (0);
 	c = 0;
@@ -96,6 +97,7 @@ static int	populate_map(t_map *map, int fd)
 		arr = NULL;
 		i++;
 	}
+	display_parsed_map(map);
 	return (1);
 }
 
