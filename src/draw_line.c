@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 12:38:21 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:38:52 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 static int	sx(int x1, int x2)
 {
@@ -47,7 +47,8 @@ void	draw_line(int32_t *pixels, int width, t_draw start_end)
 	while (1)
 	{
 		color = interpolate_color(start_end.c1, start_end.c2, vars.t);
-		pixels[start_end.y1 * width + start_end.x1] = color;
+		if (start_end.y1 < HEIGHT && start_end.y1 > 0 && start_end.x1 < WIDTH && start_end.x1 > 0)
+			pixels[start_end.y1 * width + start_end.x1] = color;
 		if (start_end.x1 == start_end.x2 && start_end.y1 == start_end.y2)
 			break;
 		vars.e2 = 2 * vars.err;

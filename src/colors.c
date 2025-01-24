@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:08:58 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 13:09:19 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 13:40:10 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 typedef float (*PointAccessor)(t_point *point);
 
@@ -102,7 +102,5 @@ void	set_colors(t_map *map)
 		return ;
 	lowest = find_lowest(map->original, map->size, get_z);
 	highest = find_highest(map->original, map->size, get_z);
-	// printf("high: %i\n", highest);
-	// printf("low: %i\n", lowest);
 	write_colors(map, lowest, highest);
 }

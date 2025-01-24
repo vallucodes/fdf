@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:51:17 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 13:43:00 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 void	rotation_X(t_map *map, float theta)
 {
@@ -57,30 +57,10 @@ void	rotation_Z(t_map *map, float theta)
 	}
 }
 
-void create_isometric_view(t_map *map)
+void	isometric_view(t_map *map)
 {
-    rotation_Z(map, M_PI / 4);
-    rotation_X(map, atan(1 / sqrt(2)));
-	// rotation_Z(map, M_PI / 4);
-    // rotation_X(map, acos(1/sqrt(3)));
-}
-
-
-void	isometric_rotation(t_map *map)
-{
-	// rotation_Z(map, M_PI / 4);
-	// rotation_X(map, atan(1 / sqrt(2)));
-	int temp_x;
-	int temp_y;
-	int i = 0;
-	while (i < map->size)
-	{
-		temp_x = map->new2d[i].x;
-		temp_y = map->new2d[i].y;
-		map->new2d[i].x = (int)((temp_x - temp_y) * cos(0.52359878 / 2));
-		map->new2d[i].y = (int)(-map->new2d[i].z + (temp_x + temp_y) * sin(0.52359878));
-		i++;
-	}
+	rotation_Z(map, M_PI / 4);
+	rotation_X(map, atan(1 / sqrt(2)));
 }
 
 void	scale_z(t_map *map)
@@ -100,11 +80,14 @@ void	scale(t_map *map)
 	int i;
 
 	i = 0;
-	while (i < map->size)
+	if (map->zoom > 0)
 	{
-		map->new2d[i].x *= map->zoom;
-		map->new2d[i].y *= map->zoom;
-		i++;
+		while (i < map->size)
+		{
+			map->new2d[i].x *= map->zoom;
+			map->new2d[i].y *= map->zoom;
+			i++;
+		}
 	}
 }
 

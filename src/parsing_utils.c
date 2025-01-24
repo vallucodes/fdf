@@ -6,11 +6,25 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/02 15:47:53 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 10:58:11 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "fdf.h"
+#include "../include/fdf.h"
+
+int	ft_max(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	return (b);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	return (b);
+}
 
 int	is_num(char c)
 {

@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:43 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 13:35:48 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 10:29:08 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 void display_old_map(t_map *map)
 {

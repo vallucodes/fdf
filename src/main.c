@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:38:08 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:35:49 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ static void ft_error(void)
 	exit(EXIT_FAILURE);
 }
 
-// Print the window width and height.
-// static void ft_hook(void* param)
-// {
-// 	t_map *map = (t_map *)param;
-
-// 	printf("actual point: %f\n", map->original[0].x);
-// }
-
 void	reset_background(int32_t* pixels, t_fdf *fdf)
 {
 	int i = 0;
@@ -41,75 +33,17 @@ void	reset_background(int32_t* pixels, t_fdf *fdf)
 	}
 }
 
-void key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_fdf *fdf = (t_fdf *)param;
-	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
-	{
-		int i = 0;
-		while (i < fdf->map->size)
-		{
-			fdf->map->original[i].x += 50;
-			i++;
-		}
-	}
-	if (keydata.key == MLX_KEY_I && keydata.action == MLX_PRESS)
-	{
-		fdf->map->angle_x = 0.05;
-		rotation_X(fdf->map, fdf->map->angle_x);
-	}
-	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
-	{
-		fdf->map->angle_y = 0.05;
-		rotation_Y(fdf->map, fdf->map->angle_y);
-	}
-	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
-	{
-		fdf->map->angle_z = 0.05;
-		rotation_Z(fdf->map, fdf->map->angle_z);
-	}
-}
-
 void	draw(t_map *map)
 {
-	// scale_z(map);
-	create_isometric_view(map);
-	// isometric_rotation(map);
-	// rotation_X(map, map->angle_x);
-	// rotation_Y(map, map->angle_y);
-	// rotation_Z(map, map->angle_z);
-	// scale(map);
+	copy_map(map);
+	scale_z(map);
+	isometric_view(map);
+	rotation_X(map, map->angle_x);
+	rotation_Y(map, map->angle_y);
+	rotation_Z(map, map->angle_z);
+	scale(map);
 	translate(map);
 	set_colors(map);
-	// ft_round(map);
-}
-
-void	draw_hook(void *param) // under work, trying to implement rotations
-{
-	t_fdf *fdf = (t_fdf *)param;
-	reset_background((int32_t*)fdf->img->pixels, fdf);
-	printf("resetted\n");
-	draw(fdf->map);
-	printf("draw done\n");
-	// display_new_map(fdf->map);
-	draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
-	printf("draw current state done\n");
-}
-
-void	initiate_values_map(t_map *map)
-{
-	map->angle_x = 0;
-	map->angle_y = 0;
-	map->angle_z = 0;
-	map->z_scale = 1;
-	map->cl.non_elevated = 0xFF;
-	map->cl.elevated = 0xFF00;
-	map->cl.background = 0xFF67C0FF;
-	map->x_offset = 0;
-	map->y_offset = 0;
-	map->zoom = 1;
-	map->original = NULL;
-	map->new2d = NULL;
 }
 
 int32_t	main(int ac, char **av)
@@ -129,27 +63,26 @@ int32_t	main(int ac, char **av)
 
 	fdf.map = &map;
 	fdf.img = img;
+	fdf.mlx = mlx;
 
 	initiate_values_map(&map);
 	if (ac == 2)
 		map_parsing(&map, av[1]);
-	// display_old_map(&map);
 	copy_map(&map);
+	set_z_scale(&map);
 	draw(&map);
 
 	int32_t* pixels = (int32_t*)img->pixels;
 
-	// print_result(&map);
-	display_new_map(&map);
+	// display_new_map(&map);
 	draw_current_state(pixels, img, &map);
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
-	// mlx_loop_hook(mlx, &ft_hook, NULL);
-
-	// mlx_key_hook(mlx, &key_hook, &fdf);
-	// mlx_loop_hook(mlx, &draw_hook, &fdf); // under work
+	mlx_scroll_hook(mlx, &ft_scrollhook, &fdf);
+	mlx_loop_hook(mlx, &ft_hook, &fdf);
+	mlx_loop_hook(mlx, &ft_hook_rotate, &fdf);
+	mlx_loop_hook(mlx, &draw_hook, &fdf);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	// printf("this %f \n", map.original[0].x);
 	return (EXIT_SUCCESS);
 }

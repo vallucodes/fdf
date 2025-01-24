@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:58:26 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:39:33 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 
 # define SCALE 100
-# define WIDTH 2500
+# define WIDTH 2000
 # define HEIGHT 1500
 
 typedef struct s_colors{
@@ -86,7 +86,7 @@ typedef struct s_map{
 	float		x_offset;
 	float		y_offset;
 	float		zoom;
-	int			z_scale;
+	float		z_scale;
 }		t_map;
 
 typedef struct s_fdf{
@@ -99,8 +99,8 @@ typedef float (*PointAccessor)(t_point *point);
 
 //initiate
 void	set_elevation(t_map *map);
-// void	define_angles(t_angle *an);
 void	define_colors(t_colors *cl);
+void	initiate_values_map(t_map *map);
 
 //operators
 void	rotation_X(t_map *map, float theta);
@@ -119,15 +119,12 @@ void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map);
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
 void		set_colors(t_map *map);
 
-//small_operations
-void	ft_round(t_map *map);
-float	get_x(t_point *point);
-float	get_y(t_point *point);
-float	get_z(t_point *point);
 int		find_highest(t_point *points, int size, PointAccessor accessor);
 int		find_lowest(t_point *points, int size, PointAccessor accessor);
 
 //map parsing
+int		ft_min(int a, int b);
+int		ft_max(int a, int b);
 int		is_num(char c);
 int		is_alnum(char c);
 int		is_space(char c);
@@ -143,6 +140,12 @@ void display_new_map(t_map *map);
 void	print_result(t_map *map);
 void	copy_map(t_map *map);
 
-void create_isometric_view(t_map *map);
+//hooks
+void	ft_scrollhook(double xdelta, double ydelta, void *param);
+void	ft_hook_rotate(void *param);
+void	ft_hook(void *param);
+void	draw_hook(void *param);
+
+void	isometric_view(t_map *map);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 16:59:29 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 11:52:54 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // error handling not checked properly. Need to modify GNL to know if NULL is due to malloc fail or not
 
-#include "fdf.h"
+#include "../include/fdf.h"
 #include <string.h>
 
 #include <stdio.h>
@@ -38,17 +38,22 @@ void display_parsed_map(t_map *map)
     printf("=========================================\n");
 }
 
+int	calc_interval(t_map *map)
+{
+	int	interval;
+
+	interval = ft_min(WIDTH / map->width, HEIGHT / map->height) / 2;
+	interval = ft_max(2, interval);
+	return(interval);
+}
+
 static void	parse_row(t_map *map, char *arr, int *c)
 {
 	int	j;
-	int	x_interval;
-	int	y_interval;
 	int	interval;
 
 	j = 0;
-	y_interval = 220;
-	x_interval = 220;
-	interval = 50;
+	interval = calc_interval(map);
 	while(arr[j] && arr[j] != '\n')
 	{
 		map->original[*c].z = ft_atoi_base(&arr[j], 10) * interval;
