@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 14:39:33 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:36:04 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	translate(t_map *map);
 //drawing
 void	draw_line(int32_t *pixels, int width, t_draw start_end);
 void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map);
+void	reset_background(int32_t* pixels, t_fdf *fdf);
+void	draw(t_map *map);
 
 //Colors
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);

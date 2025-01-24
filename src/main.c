@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 14:35:49 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:35:16 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int32_t	main(int ac, char **av)
 	if (ac == 2)
 		map_parsing(&map, av[1]);
 	copy_map(&map);
-	set_z_scale(&map);
+	// set_z_scale(&map); //implement this next, set z scale depending on what kind of elevation difference there is
 	draw(&map);
 
 	int32_t* pixels = (int32_t*)img->pixels;
