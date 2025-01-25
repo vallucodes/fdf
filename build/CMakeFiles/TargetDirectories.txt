@@ -1,0 +1,7 @@
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/mlx42.dir
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/edit_cache.dir
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/rebuild_cache.dir
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/list_install_components.dir
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/install.dir
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/install/local.dir
+/home/vallu/Coding/Main-studies/fdf/build/CMakeFiles/install/strip.dir

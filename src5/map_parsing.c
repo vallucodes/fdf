@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/23 12:38:44 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:33:00 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,9 @@ void display_parsed_map(t_map *map)
 static void	parse_row(t_map *map, char *arr, int *c)
 {
 	int	j;
-	int	x_interval;
-	int	y_interval;
 	int	interval;
 
 	j = 0;
-	y_interval = 60;
-	x_interval = 60;
 	interval = 60;
 	while(arr[j] && arr[j] != '\n')
 	{
