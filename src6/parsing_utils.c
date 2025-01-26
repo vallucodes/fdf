@@ -6,23 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 15:58:27 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:37:44 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-void	clear_fd(int fd)
-{
-	char *arr;
-	arr = get_next_line(fd);
-	while (arr)
-	{
-		free(arr);
-		arr = get_next_line(fd);
-	}
-	free(arr);
-}
 
 int	get_height(int fd)
 {
@@ -42,21 +30,16 @@ int	get_height(int fd)
 	free(arr);
 	return (height);
 }
-
-int	get_width(int fd)
+int	calc_width(char *arr)
 {
-	char	*arr;
-	int		i;
-	int		width;
+	int	i;
+	int	width;
 
-	arr = get_next_line(fd);
-	if (!arr)
-		return (0);
-	i = 0;
 	width = 0;
+	i = 0;
 	while(arr[i] && arr[i] != '\n')
 	{
-		while(arr[i] == ' ')
+		while(ft_isspace(arr[i]))
 			i++;
 		if (arr[i] > 32 && arr[i] < 127)
 		{
@@ -65,7 +48,26 @@ int	get_width(int fd)
 			width++;
 		}
 	}
+	return (width);
+}
+int	get_width(int *fd)
+{
+	char	*arr;
+	int		width;
+	int		comp_width;
+
+	arr = get_next_line(fd[0]);
+	if (!arr)
+		return (0);
+	width = calc_width(arr);
+	while (arr)
+	{
+		comp_width = calc_width(arr);
+		free(arr);
+		if (comp_width != width)
+			exit_error(NULL, fd, 2);
+		arr = get_next_line(fd[0]);
+	}
 	free(arr);
-	clear_fd(fd);
 	return (width);
 }

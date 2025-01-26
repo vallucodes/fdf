@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initiate.c                                         :+:      :+:    :+:   */
+/*   ft_minf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 15:39:10 by vlopatin         ###   ########.fr       */
+/*   Created: 2025/01/25 15:10:13 by vlopatin          #+#    #+#             */
+/*   Updated: 2025/01/26 18:51:19 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-void	initiate_values_map(t_map *map)
+float	ft_minf(float a, float b)
 {
-	map->angle_x = 0;
-	map->angle_y = 0;
-	map->angle_z = 0;
-	map->z_scale = 1;
-	map->cl.non_elevated = 0xFF240F4B;
-	map->cl.elevated = 0xFF2E3D0B;
-	map->cl.background = 0xFF67C0FF;
-	map->x_offset = 0;
-	map->y_offset = 0;
-	map->zoom = 1;
+	if (a <= b)
+		return (a);
+	return (b);
 }
-

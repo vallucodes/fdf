@@ -40,6 +40,6 @@ fclean: clean
 	@rm -rf $(NAME)
 	$(MAKE) -C $(LIBFTDIR) fclean
 
-re: clean all
+re: fclean all
 
 .PHONY: all, clean, fclean, re, libmlx

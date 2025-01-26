@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:35:32 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 14:39:35 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 18:20:57 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ void	ft_hook(void *param)
 	t_fdf	*fdf;
 
 	fdf = (t_fdf *)param;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(fdf->mlx);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_C))
+	{
+		initiate_values_map(fdf->map);
+		set_z_scale(fdf->map);
+	}
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
 		fdf->map->x_offset -= 5;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_RIGHT))

@@ -6,28 +6,30 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 19:37:44 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 17:22:29 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	get_height(int fd)
+int	get_height(t_map *map, int *fd)
 {
 	char	*arr;
 	int		height;
 
 	height = 0;
-	arr = get_next_line(fd);
+	arr = get_next_line(fd[1]);
 	if (!arr)
-		return (0);
+		exit_error(map, fd, 2, MAP);
 	while (arr)
 	{
 		free(arr);
-		arr = get_next_line(fd);
+		arr = get_next_line(fd[1]);
 		height += 1;
 	}
 	free(arr);
+	if (height <= 1)
+		exit_error(map, fd, 2, MAP);
 	return (height);
 }
 int	calc_width(char *arr)
@@ -50,7 +52,7 @@ int	calc_width(char *arr)
 	}
 	return (width);
 }
-int	get_width(int *fd)
+int	get_width(t_map *map, int *fd)
 {
 	char	*arr;
 	int		width;
@@ -58,14 +60,16 @@ int	get_width(int *fd)
 
 	arr = get_next_line(fd[0]);
 	if (!arr)
-		return (0);
+		exit_error(map, fd, 2, MAP);
 	width = calc_width(arr);
+	if (width <= 1)
+		exit_error(map, fd, 2, MAP);
 	while (arr)
 	{
 		comp_width = calc_width(arr);
 		free(arr);
 		if (comp_width != width)
-			exit_error(NULL, fd, 2);
+			exit_error(map, fd, 2, MAP);
 		arr = get_next_line(fd[0]);
 	}
 	free(arr);

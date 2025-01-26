@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 19:37:36 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 18:21:27 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@
 # include <unistd.h>
 
 # define SCALE 100
-# define WIDTH 2000
-# define HEIGHT 1500
+# define WIDTH 1980
+# define HEIGHT 1080
+# define MALLOC "Memory allocation failed"
+# define MAP "Invalid map"
+# define FILE "Invalid file name"
 
 typedef struct s_colors{
 	uint32_t non_elevated;
@@ -102,6 +105,7 @@ typedef float (*PointAccessor)(t_point *point);
 void	set_elevation(t_map *map);
 void	define_colors(t_colors *cl);
 void	initiate_values_map(t_map *map);
+void	set_z_scale(t_map *map);
 
 //operators
 void	rotation_X(t_map *map, float theta);
@@ -124,12 +128,15 @@ void		set_colors(t_map *map);
 
 int		find_highest(t_point *points, int size, PointAccessor accessor);
 int		find_lowest(t_point *points, int size, PointAccessor accessor);
+float	get_x(t_point *point);
+float	get_y(t_point *point);
+float	get_z(t_point *point);
 
 //map parsing
 int32_t	ft_atoi_base(char *str, int base);
-int		get_height(int fd);
-int		get_width(int *fd);
-int		map_parsing(t_map *map, char *av);
+int		get_height(t_map *map, int *fd);
+int		get_width(t_map *map, int *fd);
+t_map	*map_parsing(char *av);
 
 //operations
 void display_old_map(t_map *map);
@@ -147,6 +154,6 @@ void	isometric_view(t_map *map);
 
 //error
 void	close_fds(int *fd, int amount);
-void	exit_error(t_map *map, int *fd, int error);
+void	exit_error(t_map *map, int *fd, int error, const char *msg);
 
 #endif

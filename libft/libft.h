@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:10:38 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 15:17:45 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 18:52:01 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ char	*ft_itoa(int n);
 void	*ft_calloc(size_t nmemb, size_t size);
 
 // math
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
+int		ft_mini(int a, int b);
+float	ft_minf(float a, float b);
+int		ft_maxi(int a, int b);
+float	ft_maxf(float a, float b);
 
 // char
 int		ft_isalnum(int c);

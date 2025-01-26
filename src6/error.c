@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:30:06 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 17:15:55 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 10:49:07 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,25 @@ void	close_fds(int *fd, int amount)
 	}
 }
 
-void	exit_error(t_map *map, int *fd, int error, const char *msg)
+void	exit_error(t_map *map, int *fd, int error)
 {
-	if (error == 0)
+	if (error == 1)
 	{
 		free (map->original);
 		free (map->new2d);
-		free (map);
-	}
-	else if (error == 1)
-	{
-		free (map->original);
-		free (map->new2d);
-		free (map);
-		close_fds(fd, 3);
+		ft_putstr_fd("Memory allocation failed\n", 2);
+		exit (1);
 	}
 	else if (error == 2)
 	{
-		free (map);
 		close_fds(fd, 3);
+		ft_putstr_fd("Invalid map\n", 2);
+		exit (1);
 	}
-	ft_putendl_fd((char *)msg, 2);
-	exit (1);
+	else if (error == 3)
+	{
+		close_fds(fd, 3);
+		ft_putstr_fd("Invalid file name\n", 2);
+		exit (1);
+	}
 }

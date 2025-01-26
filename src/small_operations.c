@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:43 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 10:29:08 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 11:28:34 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ void display_new_map(t_map *map)
     printf("=========================================\n");
 }
 
-void	ft_round(t_map *map)
-{
-	int	i;
+// void	ft_round(t_map *map)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < map->size)
-	{
-		map->new2d[i].x = roundf(map->new2d[i].x);
-		map->new2d[i].y = roundf(map->new2d[i].y);
-		map->new2d[i].z = roundf(map->new2d[i].z);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < map->size)
+// 	{
+// 		map->new2d[i].x = roundf(map->new2d[i].x);
+// 		map->new2d[i].y = roundf(map->new2d[i].y);
+// 		map->new2d[i].z = roundf(map->new2d[i].z);
+// 		i++;
+// 	}
+// }
 
 void	copy_map(t_map *map)
 {

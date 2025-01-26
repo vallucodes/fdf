@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 15:56:22 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 10:51:05 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	parse_row(t_map *map, char *arr, int *c)
 	}
 }
 
-static int	populate_map(t_map *map, int fd)
+static void	populate_map(t_map *map, int fd)
 {
 	int		i;
 	int		c;
@@ -88,63 +88,50 @@ static int	populate_map(t_map *map, int fd)
 	map->original = malloc(map->size * sizeof(t_point));
 	map->new2d = malloc(map->size * sizeof(t_point));
 	if(!map->original || !map->new2d)
-		return (0);
+		exit_error(map, NULL, 1);
 	c = 0;
 	i = 0;
 	while (i < map->height)
 	{
 		arr = get_next_line(fd);
 		if (!arr)
-			return (0);
+			exit_error(map, NULL, 1);
 		parse_row(map, arr, &c);
 		free(arr);
 		arr = NULL;
 		i++;
 	}
-	return (1);
 }
 
 static int	load_data(t_map *map, int *fd)
 {
-	map->height = get_height(fd[0]);
-	map->width = get_width(fd[1]);
-	if (!populate_map(map, fd[2]))
-		return (0);
-	return (1);
+	map->width = get_width(fd);
+	map->height = get_height(fd[1]);
+	populate_map(map, fd[2]); // error handling in these is done
+	return (1); //do i need this return?
 }
 
-static int	*open_file(char *map_name, int *fd)
+static int	open_file(char *map_name, int *fd)
 {
 	fd[0] = open(map_name, O_RDONLY);
 	fd[1] = open(map_name, O_RDONLY);
 	fd[2] = open(map_name, O_RDONLY);
-	return (fd);
+	if (fd[0] == -1 || fd[1] == -1 || fd[2] == -1)
+		return (0);
+	return (1);
 }
 
 int	map_parsing(t_map *map, char *av)
 {
-	int fd[3];
+	int fd[3] = {-1, -1, -1};
 
-	open_file(av, fd);
-	if (fd[0] == -1 || fd[1] == -1 || fd[2] == -1)
-	{
-		if (fd[0] == -1)
-			close(fd[0]);
-		if (fd[1] == -1)
-			close(fd[1]);
-		if (fd[2] == -1)
-			close(fd[2]);
-		return (0);
-	}
+	if (!open_file(av, fd))
+		exit_error(NULL, fd, 3);
 	if (!load_data(map, fd))
 	{
-		close(fd[0]);
-		close(fd[1]);
-		close(fd[2]);
+		close_fds(fd, 3);
 		return (0);
 	}
-	close(fd[0]);
-	close(fd[1]);
-	close(fd[2]);
+	close_fds(fd, 3);
 	return (1);
 }
