@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 16:01:07 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:09:21 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,29 @@ static void	initialize_points(t_draw *start_end, t_point *point1, t_point *point
 	start_end->c2 = point2->color;
 }
 
-void	reset_background(int32_t* pixels, t_fdf *fdf)
+void	reset_background(t_fdf *fdf)
 {
-	int i = 0;
+	uint32_t	i;
+	uint32_t	j;
 
-	while (i < WIDTH * HEIGHT)
+	i = 0;
+	while (i < fdf->img->height)
 	{
-		pixels[i] = fdf->map->cl.background;
+		j = 0;
+		while (j < fdf->img->width)
+		{
+			mlx_put_pixel(fdf->img, j, i, fdf->map->cl.background);
+			j++;
+		}
 		i++;
 	}
 }
 
-void	draw(t_map *map)
+void	draw_isometric(t_map *map)
 {
 	copy_map(map);
 	scale_z(map);
-	isometric_view(map);
+	special_view(map, map->alpha_x, map->alpha_z);
 	rotation_X(map, map->angle_x);
 	rotation_Y(map, map->angle_y);
 	rotation_Z(map, map->angle_z);

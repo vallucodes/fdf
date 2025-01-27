@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/25 16:01:07 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:59:01 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	reset_background(int32_t* pixels, t_fdf *fdf)
 	}
 }
 
-void	draw(t_map *map)
+void	draw_isometric(t_map *map)
 {
 	copy_map(map);
 	scale_z(map);

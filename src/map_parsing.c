@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 18:52:45 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:07:37 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ float	calc_interval(t_map *map)
 	float	interval;
 
 	interval = ft_minf(WIDTH / map->width, HEIGHT / map->height) / 2;
-	// printf("%f\n", interval);
 	interval = ft_maxf(1.5, interval);
-	// printf("%f\n", interval);
 	return(interval);
 }
 
@@ -58,7 +56,7 @@ static void	parse_row(t_map *map, char *arr, int *c)
 	interval = calc_interval(map);
 	while(arr[j] && arr[j] != '\n')
 	{
-		map->original[*c].z = ft_atoi_base(&arr[j], 10) * interval;
+		map->original[*c].z = ft_atoi_base(&arr[j], 10) * interval / 2;
 		map->original[*c].x = ((*c) % map->width) * interval - map->width / 2 * interval;
 		map->original[*c].y = ((*c) / map->width) * interval - map->height / 2 * interval;
 		while(ft_isspace(arr[j]))

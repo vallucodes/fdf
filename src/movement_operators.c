@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 13:43:00 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 13:58:59 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,28 @@ void	rotation_Z(t_map *map, float theta)
 	}
 }
 
+void	special_view(t_map *map, float alpha_x, float alpha_z)
+{
+	rotation_Z(map, alpha_z);
+	rotation_X(map, alpha_x);
+}
+
+void	dimetric_view(t_map *map)
+{
+	map->angle_x = 0;
+	map->angle_y = 0;
+	map->angle_z = 0;
+	map->alpha_x = 1;
+	map->alpha_z = M_PI / 4;
+}
+
 void	isometric_view(t_map *map)
 {
-	rotation_Z(map, M_PI / 4);
-	rotation_X(map, atan(1 / sqrt(2)));
+	map->angle_x = 0;
+	map->angle_y = 0;
+	map->angle_z = 0;
+	map->alpha_x = atan(1 / sqrt(2));
+	map->alpha_z = M_PI / 4;
 }
 
 void	scale_z(t_map *map)

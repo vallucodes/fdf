@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 17:22:29 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:26:45 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ int	get_height(t_map *map, int *fd)
 	while (arr)
 	{
 		free(arr);
+		arr = NULL;
 		arr = get_next_line(fd[1]);
 		height += 1;
 	}
 	free(arr);
+	arr = NULL;
 	if (height <= 1)
 		exit_error(map, fd, 2, MAP);
 	return (height);
@@ -62,16 +64,18 @@ int	get_width(t_map *map, int *fd)
 	if (!arr)
 		exit_error(map, fd, 2, MAP);
 	width = calc_width(arr);
-	if (width <= 1)
-		exit_error(map, fd, 2, MAP);
 	while (arr)
 	{
 		comp_width = calc_width(arr);
 		free(arr);
+		arr = NULL;
 		if (comp_width != width)
 			exit_error(map, fd, 2, MAP);
 		arr = get_next_line(fd[0]);
 	}
 	free(arr);
+	arr = NULL;
+	if (width <= 1)
+		exit_error(map, fd, 2, MAP);
 	return (width);
 }

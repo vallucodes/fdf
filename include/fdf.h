@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 18:21:27 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:09:51 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <unistd.h>
 
 # define SCALE 100
-# define WIDTH 1980
-# define HEIGHT 1080
+# define WIDTH 3840
+# define HEIGHT 2160
 # define MALLOC "Memory allocation failed"
 # define MAP "Invalid map"
 # define FILE "Invalid file name"
@@ -84,6 +84,8 @@ typedef struct s_map{
 	int			width;
 	int			height;
 	int			max_height;
+	float		alpha_x;
+	float		alpha_z;
 	float		angle_x;
 	float		angle_y;
 	float		angle_z;
@@ -111,7 +113,9 @@ void	set_z_scale(t_map *map);
 void	rotation_X(t_map *map, float theta);
 void	rotation_Y(t_map *map, float theta);
 void	rotation_Z(t_map *map, float theta);
-void	isometric_rotation(t_map *map);
+void	special_view(t_map *map, float alpha_x, float alpha_z);
+void	isometric_view(t_map *map);
+void	dimetric_view(t_map *map);
 void	scale_z(t_map *map);
 void	scale(t_map *map);
 void	translate(t_map *map);
@@ -119,8 +123,8 @@ void	translate(t_map *map);
 //drawing
 void	draw_line(int32_t *pixels, int width, t_draw start_end);
 void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map);
-void	reset_background(int32_t* pixels, t_fdf *fdf);
-void	draw(t_map *map);
+void	reset_background(t_fdf *fdf);
+void	draw_isometric(t_map *map);
 
 //Colors
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
@@ -149,8 +153,6 @@ void	ft_scrollhook(double xdelta, double ydelta, void *param);
 void	ft_hook_rotate(void *param);
 void	ft_hook(void *param);
 void	draw_hook(void *param);
-
-void	isometric_view(t_map *map);
 
 //error
 void	close_fds(int *fd, int amount);

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 18:59:15 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:32:22 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 #include <unistd.h>
 #include "../include/fdf.h"
 
+//to do
+//move atoi base to libft
+//add error separation in gnl for malloc and other errors
+//fix and learn makefile
+
 t_fdf	initialize_fdf(char *filename)
 {
 	t_fdf	fdf;
 
 	fdf.map = map_parsing(filename);
 	initiate_values_map(fdf.map);
-	// fdf.mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
+	set_z_scale(fdf.map);
 	fdf.mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
 	if (!fdf.mlx)
 		exit_error(fdf.map, NULL, 0, mlx_strerror(mlx_errno));
@@ -43,7 +48,7 @@ void	set_z_scale(t_map *map)
 	min = find_lowest(map->original, map->size, get_z);
 	max = find_highest(map->original, map->size, get_z);
 	dz = max - min;
-	while (dz > HEIGHT - 900)
+	while (dz > HEIGHT - 1800)
 	{
 		map->z_scale *= 0.95;
 		dz *= 0.9;
@@ -56,7 +61,8 @@ int32_t	main(int ac, char **av)
 	if (ac != 2)
 		return (1);
 	fdf = initialize_fdf(av[1]);
-	set_z_scale(fdf.map);
+
+	draw_isometric(fdf.map); //added
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
 	mlx_scroll_hook(fdf.mlx, &ft_scrollhook, &fdf);

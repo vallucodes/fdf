@@ -9,15 +9,9 @@ SRC_DIR		= src/
 
 HEADERS		= -I ./include -I $(LIBMLX)/include -I $(GNL) -I $(LIBFTDIR)
 LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS		= $(shell find src -iname "*.c" | sed 's|^\./||')
+OBJS		= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 DEPS		= $(shell find include -iname "*.h")
-
-SRC			=	colors.c draw_current.c draw_line.c error.c ft_atoi_base.c \
-				gradient.c hooks.c initiate.c main.c map_parsing.c \
-				movement_operators.c parsing_utils.c small_operations.c \
-				gnl/get_next_line_utils.c gnl/get_next_line.c
-
-SRCS		= $(addprefix $(SRC_DIR), $(SRC))
-OBJS		= $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all: $(OBJ_DIR) libmlx $(LIBFT) $(NAME)
 

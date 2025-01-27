@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 12:42:04 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 10:34:36 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,49 @@
 #include <unistd.h>
 #include "../include/fdf.h"
 
-// Exit the program as failure.
-static void ft_error(void)
-{
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
-
 t_fdf	initialize_fdf(char *filename)
 {
 	t_fdf	fdf;
 
-	fdf.map = (t_map*)malloc(sizeof(t_map));
-    if (!fdf.map)
-    {
-        printf("Failed to allocate memory for map");
-        ft_error(); // handle this better
-    }
+	fdf.map = map_parsing(filename);
 	initiate_values_map(fdf.map);
-	map_parsing(fdf.map, filename);
+	set_z_scale(fdf.map);
 	fdf.mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
 	if (!fdf.mlx)
-	{
-		printf("!fdf.mlx");
-		ft_error(); // handle this better
-	}
+		exit_error(fdf.map, NULL, 0, mlx_strerror(mlx_errno));
 	fdf.img = mlx_new_image(fdf.mlx, WIDTH, HEIGHT);
 	if (!fdf.img || (mlx_image_to_window(fdf.mlx, fdf.img, 0, 0) < 0))
 	{
-		printf("fdf.img || <0");
-		ft_error(); // handle this better
+		mlx_close_window(fdf.mlx);
+		exit_error(fdf.map, NULL, 0, mlx_strerror(mlx_errno));
 	}
-	ft_putstr_fd("Init completed\n", 4);
 	return (fdf);
 }
 
+void	set_z_scale(t_map *map)
+{
+	int	min;
+	int	max;
+	int	dz;
+
+	min = find_lowest(map->original, map->size, get_z);
+	max = find_highest(map->original, map->size, get_z);
+	dz = max - min;
+	while (dz > HEIGHT - 900)
+	{
+		map->z_scale *= 0.95;
+		dz *= 0.9;
+	}
+}
 int32_t	main(int ac, char **av)
 {
+	t_fdf fdf;
+
 	if (ac != 2)
 		return (1);
-	t_fdf fdf;
-	// t_map map;
-	// fdf.map = &map;
-
-	// map_parsing(&map, av[1]);
 	fdf = initialize_fdf(av[1]);
-	// set_z_scale(&map); //implement this next, set z scale depending on what kind of elevation difference there is
-
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
-	write(1, "ok1\n", 4);
 	mlx_scroll_hook(fdf.mlx, &ft_scrollhook, &fdf);
 	mlx_loop_hook(fdf.mlx, &ft_hook, &fdf);
 	mlx_loop_hook(fdf.mlx, &ft_hook_rotate, &fdf);

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:35:32 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 18:20:57 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:09:34 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_hook_rotate(void *param)
 	else if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT_CONTROL))
 		sign = 1;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_J))
-		fdf->map->z_scale += sign * 0.2;
+		fdf->map->z_scale += sign * 0.05;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_X))
 		fdf->map->angle_x += sign * 0.03;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Y))
@@ -57,14 +57,18 @@ void	ft_hook(void *param)
 		initiate_values_map(fdf->map);
 		set_z_scale(fdf->map);
 	}
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_1))
+		dimetric_view(fdf->map);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_2))
+		isometric_view(fdf->map);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
-		fdf->map->x_offset -= 5;
+		fdf->map->x_offset -= 7;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_RIGHT))
-		fdf->map->x_offset += 5;
+		fdf->map->x_offset += 7;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_DOWN))
-		fdf->map->y_offset += 5;
+		fdf->map->y_offset += 7;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_UP))
-		fdf->map->y_offset -= 5;
+		fdf->map->y_offset -= 7;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_R))
 		ft_scrollhook(0, 1, param);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_T))
@@ -74,7 +78,7 @@ void	ft_hook(void *param)
 void	draw_hook(void *param)
 {
 	t_fdf *fdf = (t_fdf *)param;
-	reset_background((int32_t*)fdf->img->pixels, fdf);
-	draw(fdf->map);
+	reset_background(fdf);
+	draw_isometric(fdf->map);
 	draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
 }

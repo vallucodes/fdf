@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/26 10:51:05 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:19:11 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ void display_parsed_map(t_map *map)
     printf("=========================================\n");
 }
 
-int	calc_interval(t_map *map)
+float	calc_interval(t_map *map)
 {
-	int	interval;
+	float	interval;
 
-	interval = ft_min(WIDTH / map->width, HEIGHT / map->height) / 2;
-	interval = ft_max(2, interval);
+	interval = ft_minf(WIDTH / map->width, HEIGHT / map->height) / 2;
+	interval = ft_maxf(1.5, interval);
 	return(interval);
 }
 
 static void	parse_row(t_map *map, char *arr, int *c)
 {
 	int	j;
-	int	interval;
+	float	interval;
 
 	j = 0;
 	interval = calc_interval(map);
@@ -78,7 +78,7 @@ static void	parse_row(t_map *map, char *arr, int *c)
 	}
 }
 
-static void	populate_map(t_map *map, int fd)
+static void	populate_map(t_map *map, int *fd)
 {
 	int		i;
 	int		c;
@@ -88,14 +88,12 @@ static void	populate_map(t_map *map, int fd)
 	map->original = malloc(map->size * sizeof(t_point));
 	map->new2d = malloc(map->size * sizeof(t_point));
 	if(!map->original || !map->new2d)
-		exit_error(map, NULL, 1);
+		exit_error(map, fd, 1, MALLOC);
 	c = 0;
 	i = 0;
 	while (i < map->height)
 	{
-		arr = get_next_line(fd);
-		if (!arr)
-			exit_error(map, NULL, 1);
+		arr = get_next_line(fd[2]);
 		parse_row(map, arr, &c);
 		free(arr);
 		arr = NULL;
@@ -103,12 +101,11 @@ static void	populate_map(t_map *map, int fd)
 	}
 }
 
-static int	load_data(t_map *map, int *fd)
+static void	load_data(t_map *map, int *fd)
 {
-	map->width = get_width(fd);
-	map->height = get_height(fd[1]);
-	populate_map(map, fd[2]); // error handling in these is done
-	return (1); //do i need this return?
+	map->width = get_width(map, fd);
+	map->height = get_height(map, fd);
+	populate_map(map, fd);
 }
 
 static int	open_file(char *map_name, int *fd)
@@ -121,17 +118,17 @@ static int	open_file(char *map_name, int *fd)
 	return (1);
 }
 
-int	map_parsing(t_map *map, char *av)
+t_map	*map_parsing(char *av)
 {
-	int fd[3] = {-1, -1, -1};
+	t_map *map;
 
+	map = malloc(sizeof(t_map));
+	if (!map)
+		exit_error(NULL, NULL, 0, MALLOC);
+	int fd[3] = {-1, -1, -1};
 	if (!open_file(av, fd))
-		exit_error(NULL, fd, 3);
-	if (!load_data(map, fd))
-	{
-		close_fds(fd, 3);
-		return (0);
-	}
+		exit_error(map, fd, 2, FILE);
+	load_data(map, fd);
 	close_fds(fd, 3);
-	return (1);
+	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 14:30:12 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/26 15:39:10 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,5 @@ void	initiate_values_map(t_map *map)
 	map->x_offset = 0;
 	map->y_offset = 0;
 	map->zoom = 1;
-	map->original = NULL;
-	map->new2d = NULL;
 }
 
