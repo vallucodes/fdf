@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 10:36:38 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 15:46:52 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:03:40 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*fill_line(int fd, char *str_s, char *buffer)
+static char	*fill_line(int fd, char *str_s, char *buffer, int *error)
 {
 	ssize_t	bytes_read;
 	char	*temp;
@@ -30,6 +30,8 @@ static char	*fill_line(int fd, char *str_s, char *buffer)
 		buffer[bytes_read] = '\0';
 		temp = str_s;
 		str_s = ft_strjoin(str_s, buffer);
+		if (!str_s)
+			*error = 1;
 		free (temp);
 		temp = NULL;
 		if (ft_strchr(str_s, '\n'))
@@ -38,7 +40,7 @@ static char	*fill_line(int fd, char *str_s, char *buffer)
 	return (str_s);
 }
 
-static char	*set_reminder(char *line)
+static char	*set_reminder(char *line, int *error)
 {
 	char		*str_s;
 	ssize_t		i;
@@ -49,6 +51,11 @@ static char	*set_reminder(char *line)
 	if (line[i] == '\n')
 	{
 		str_s = ft_strdup(&line[i + 1]);
+		if (!str_s)
+		{
+			*error = 1;
+			return (NULL);
+		}
 		if (*str_s == '\0')
 		{
 			free(str_s);
@@ -61,7 +68,7 @@ static char	*set_reminder(char *line)
 	return (NULL);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *error)
 {
 	char		*buffer;
 	char		*line;
@@ -70,18 +77,21 @@ char	*get_next_line(int fd)
 	line = NULL;
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
+	{
+		*error = 1;
 		return (NULL);
+	}
 	if (BUFFER_SIZE <= 0 || fd < 0)
 	{
 		free(buffer);
 		buffer = NULL;
 		return (NULL);
 	}
-	line = fill_line(fd, str_s[fd], buffer);
+	line = fill_line(fd, str_s[fd], buffer, error);
 	free (buffer);
 	buffer = NULL;
 	if (!line)
 		return (NULL);
-	str_s[fd] = set_reminder(line);
+	str_s[fd] = set_reminder(line, error);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:35:32 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:42:30 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:13:14 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	draw_hook(void *param)
 {
 	t_fdf *fdf = (t_fdf *)param;
 	reset_background(fdf);
-	draw_isometric(fdf->map);
+	do_operations(fdf->map);
 	draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
 }

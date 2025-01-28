@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:21 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:22:07 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	reset_background(t_fdf *fdf)
 	}
 }
 
-void	draw_isometric(t_map *map)
+void	do_operations(t_map *map)
 {
 	copy_map(map);
-	scale_z(map);
+	apply_scale_z(map);
 	special_view(map, map->alpha_x, map->alpha_z);
 	rotation_X(map, map->angle_x);
 	rotation_Y(map, map->angle_y);
 	rotation_Z(map, map->angle_z);
-	scale(map);
+	zoom(map);
 	translate(map);
 	set_colors(map);
 }

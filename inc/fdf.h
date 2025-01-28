@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 16:09:51 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:17:25 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ void	rotation_Z(t_map *map, float theta);
 void	special_view(t_map *map, float alpha_x, float alpha_z);
 void	isometric_view(t_map *map);
 void	dimetric_view(t_map *map);
-void	scale_z(t_map *map);
-void	scale(t_map *map);
+void	apply_scale_z(t_map *map);
+void	zoom(t_map *map);
 void	translate(t_map *map);
 
 //drawing
 void	draw_line(int32_t *pixels, int width, t_draw start_end);
 void	draw_current_state(int32_t *pixels, mlx_image_t* img, t_map *map);
 void	reset_background(t_fdf *fdf);
-void	draw_isometric(t_map *map);
+void	do_operations(t_map *map);
 
 //Colors
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
@@ -137,15 +137,13 @@ float	get_y(t_point *point);
 float	get_z(t_point *point);
 
 //map parsing
+float	calc_interval(t_map *map);
 int32_t	ft_atoi_base(char *str, int base);
 int		get_height(t_map *map, int *fd);
 int		get_width(t_map *map, int *fd);
 t_map	*map_parsing(char *av);
 
 //operations
-void display_old_map(t_map *map);
-void display_new_map(t_map *map);
-void	print_result(t_map *map);
 void	copy_map(t_map *map);
 
 //hooks

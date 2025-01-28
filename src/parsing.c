@@ -1,51 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:44 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:26:40 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// error handling not checked properly. Need to modify GNL to know if NULL is due to malloc fail or not
-
 #include "../inc/fdf.h"
-#include <string.h>
 
 #include <stdio.h>
-
-void display_parsed_map(t_map *map)
-{
-    int i;
-    t_point *point;
-
-    printf("Parsed Map (3D Grid):\n");
-    printf("Rows: %d, Columns: %d\n", map->width, map->height);
-    // printf("Height Range: Low = %.2d, High = %.2d\n", map->low, map->high);
-    printf("=========================================\n");
-
-    for (i = 0; i < map->size; i++)
-    {
-		point = &(map->original[i]);
-		printf("Point[%d]: x=%.2f, y=%.2f, z=%.2f, color=0x%x\n",
-				i, point->x, point->y, point->z, point->color);
-        printf("\n");
-    }
-	// printf("angles 1: %f, 2: %f, 3: %f\n", map->xrotate, map->yrotate, map->zrotate);
-    printf("=========================================\n");
-}
-
-float	calc_interval(t_map *map)
-{
-	float	interval;
-
-	interval = ft_minf(WIDTH / map->width, HEIGHT / map->height) / 2;
-	interval = ft_maxf(1.5, interval);
-	return(interval);
-}
 
 static void	parse_row(t_map *map, char *arr, int *c)
 {
@@ -83,6 +50,7 @@ static void	populate_map(t_map *map, int *fd)
 	int		i;
 	int		c;
 	char	*arr;
+	int		error;
 
 	map->size = map->width * map->height;
 	map->original = malloc(map->size * sizeof(t_point));
@@ -91,9 +59,12 @@ static void	populate_map(t_map *map, int *fd)
 		exit_error(map, fd, 1, MALLOC);
 	c = 0;
 	i = 0;
+	error = 0;
 	while (i < map->height)
 	{
-		arr = get_next_line(fd[2]);
+		arr = get_next_line(fd[2], &error);
+		if (error == 1)
+			exit_error(map, fd, 1, MALLOC);
 		parse_row(map, arr, &c);
 		free(arr);
 		arr = NULL;

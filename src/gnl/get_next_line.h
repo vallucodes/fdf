@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:55:56 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/02 13:35:45 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:38:13 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 # define MAX_FD 1024
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int *error);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	fill_str(char *dst, const char *s1, const char *s2);
 char	*ft_strdup(const char *s);

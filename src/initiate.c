@@ -6,11 +6,27 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:34 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:21:25 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+void	set_z_scale(t_map *map)
+{
+	int	min;
+	int	max;
+	int	dz;
+
+	min = find_lowest(map->original, map->size, get_z);
+	max = find_highest(map->original, map->size, get_z);
+	dz = max - min;
+	while (dz > HEIGHT - 1800)
+	{
+		map->z_scale *= 0.95;
+		dz *= 0.9;
+	}
+}
 
 void	initiate_values_map(t_map *map)
 {
@@ -20,7 +36,6 @@ void	initiate_values_map(t_map *map)
 	map->angle_y = 0;
 	map->angle_z = 0;
 	map->z_scale = 1;
-	// map->cl.non_elevated = 0xFF240F4B;
 	map->cl.non_elevated = 0xFF0000BB;
 	map->cl.elevated = 0xFF7A7A1E;
 	map->cl.background = 0xFFC067BB;
@@ -29,3 +44,20 @@ void	initiate_values_map(t_map *map)
 	map->zoom = 1;
 }
 
+void	dimetric_view(t_map *map)
+{
+	map->angle_x = 0;
+	map->angle_y = 0;
+	map->angle_z = 0;
+	map->alpha_x = 1;
+	map->alpha_z = M_PI / 4;
+}
+
+void	isometric_view(t_map *map)
+{
+	map->angle_x = 0;
+	map->angle_y = 0;
+	map->angle_z = 0;
+	map->alpha_x = atan(1 / sqrt(2));
+	map->alpha_z = M_PI / 4;
+}

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:15:41 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/01 23:49:44 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:37:15 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
 		if (*s == (char)c)

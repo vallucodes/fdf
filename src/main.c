@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:37 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:15:36 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <unistd.h>
 #include "../inc/fdf.h"
 
-//to do
-//move atoi base to libft
-//add error separation in gnl for malloc and other errors
-//fix and learn makefile
+// to do
+// check all header includes that they work
+// arrange functions and files maybe better
+// norminette
 
 t_fdf	initialize_fdf(char *filename)
 {
@@ -39,21 +39,6 @@ t_fdf	initialize_fdf(char *filename)
 	return (fdf);
 }
 
-void	set_z_scale(t_map *map)
-{
-	int	min;
-	int	max;
-	int	dz;
-
-	min = find_lowest(map->original, map->size, get_z);
-	max = find_highest(map->original, map->size, get_z);
-	dz = max - min;
-	while (dz > HEIGHT - 1800)
-	{
-		map->z_scale *= 0.95;
-		dz *= 0.9;
-	}
-}
 int32_t	main(int ac, char **av)
 {
 	t_fdf fdf;
@@ -61,10 +46,6 @@ int32_t	main(int ac, char **av)
 	if (ac != 2)
 		return (1);
 	fdf = initialize_fdf(av[1]);
-
-	draw_isometric(fdf.map); //added
-	// Register a hook and pass mlx as an optional param.
-	// NOTE: Do this before calling mlx_loop!
 	mlx_scroll_hook(fdf.mlx, &ft_scrollhook, &fdf);
 	mlx_loop_hook(fdf.mlx, &ft_hook, &fdf);
 	mlx_loop_hook(fdf.mlx, &ft_hook_rotate, &fdf);

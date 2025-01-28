@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:08:58 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:18 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:27:36 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-typedef float (*PointAccessor)(t_point *point);
+// typedef float (*PointAccessor)(t_point *point);
 
 static int	is_all_set(t_map *map)
 {

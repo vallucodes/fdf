@@ -6,34 +6,53 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:54 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:46:32 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
+float	calc_interval(t_map *map)
+{
+	float	interval;
+
+	interval = ft_minf(WIDTH / map->width, HEIGHT / map->height) / 2;
+	interval = ft_maxf(1.5, interval);
+	return(interval);
+}
+
+static void	check_errors(t_map *map, int *fd, char *arr, int error)
+{
+	if (error == 1)
+		exit_error(map, fd, 2, MALLOC);
+	if (!arr)
+		exit_error(map, fd, 2, MAP);
+}
+
 int	get_height(t_map *map, int *fd)
 {
 	char	*arr;
 	int		height;
+	int		error;
 
+	error = 0;
 	height = 0;
-	arr = get_next_line(fd[1]);
-	if (!arr)
-		exit_error(map, fd, 2, MAP);
+	arr = get_next_line(fd[1], &error);
+	check_errors(map, fd, arr, error);
 	while (arr)
 	{
 		free(arr);
 		arr = NULL;
-		arr = get_next_line(fd[1]);
+		arr = get_next_line(fd[1], &error);
+		if (error == 1)
+			exit_error(map, fd, 2, MALLOC);
 		height += 1;
 	}
-	free(arr);
-	arr = NULL;
 	if (height <= 1)
 		exit_error(map, fd, 2, MAP);
 	return (height);
 }
+
 int	calc_width(char *arr)
 {
 	int	i;
@@ -54,15 +73,17 @@ int	calc_width(char *arr)
 	}
 	return (width);
 }
+
 int	get_width(t_map *map, int *fd)
 {
 	char	*arr;
 	int		width;
 	int		comp_width;
+	int		error;
 
-	arr = get_next_line(fd[0]);
-	if (!arr)
-		exit_error(map, fd, 2, MAP);
+	error = 0;
+	arr = get_next_line(fd[0], &error);
+	check_errors(map, fd, arr, error);
 	width = calc_width(arr);
 	while (arr)
 	{
@@ -71,10 +92,10 @@ int	get_width(t_map *map, int *fd)
 		arr = NULL;
 		if (comp_width != width)
 			exit_error(map, fd, 2, MAP);
-		arr = get_next_line(fd[0]);
+		arr = get_next_line(fd[0], &error);
+		if (error == 1)
+			exit_error(map, fd, 2, MALLOC);
 	}
-	free(arr);
-	arr = NULL;
 	if (width <= 1)
 		exit_error(map, fd, 2, MAP);
 	return (width);
