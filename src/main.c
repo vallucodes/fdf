@@ -6,14 +6,14 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 16:32:22 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:29:37 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 
 //to do
 //move atoi base to libft

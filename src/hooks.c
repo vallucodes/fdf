@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:35:32 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 16:09:34 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:42:30 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 
 void	ft_scrollhook(double xdelta, double ydelta, void *param)
 {

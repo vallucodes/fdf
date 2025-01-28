@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:22:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 16:09:21 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:29:21 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 
 static void	initialize_points(t_draw *start_end, t_point *point1, t_point *point2)
 {

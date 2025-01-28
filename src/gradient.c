@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:23:59 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/24 10:28:26 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:29:28 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 
 static int	is_little_endian()
 {

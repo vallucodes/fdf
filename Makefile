@@ -1,17 +1,20 @@
 NAME		= Game
 CFLAGS		= -g -Wextra -Wall -Werror -Wunreachable-code
-LIBMLX		= ./lib/MLX42
-LIBFTDIR 	= ./libft
-LIBFT 		= $(LIBFTDIR)/libft.a
-GNL			= ./src/gnl
+
+#Libraries
+MLX_DIR		= ./lib/MLX42
+MLX			= $(MLX_DIR)/build/libmlx42.a
+LIBFT_DIR 	= ./libft
+LIBFT 		= $(LIBFT_DIR)/libft.a
+GNL_DIR		= ./src/gnl
+
 OBJ_DIR		= obj/
 SRC_DIR		= src/
 
-HEADERS		= -I ./include -I $(LIBMLX)/include -I $(GNL) -I $(LIBFTDIR)
-LIBS		= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-DEPS		= $(shell find include -iname "*.h")
+HEADERS		= -I ./inc -I $(MLX_DIR)/include -I $(GNL_DIR) -I $(LIBFT_DIR)
+LIBS		= $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-SRC			=	colors.c draw_current.c draw_line.c error.c ft_atoi_base.c \
+SRC			=	colors.c draw_current.c draw_line.c error.c \
 				gradient.c hooks.c initiate.c main.c map_parsing.c \
 				movement_operators.c parsing_utils.c small_operations.c \
 				gnl/get_next_line_utils.c gnl/get_next_line.c
@@ -19,32 +22,31 @@ SRC			=	colors.c draw_current.c draw_line.c error.c ft_atoi_base.c \
 SRCS		= $(addprefix $(SRC_DIR), $(SRC))
 OBJS		= $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
 
-all: $(OBJ_DIR) libmlx $(LIBFT) $(NAME)
+all: $(NAME)
 
-$(OBJ_DIR):
-		@mkdir -p $(OBJ_DIR)
-
+#make libraries
 $(LIBFT):
-	$(MAKE) -C $(LIBFTDIR)
+	$(MAKE) -C $(LIBFT_DIR)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+$(MLX): $(MLX_DIR)
+	@cmake $(MLX_DIR) -B $(MLX_DIR)/build
+	@make -C $(MLX_DIR)/build -j4
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(DEPS)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(OBJ_DIR) $(MLX)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) $(LIBFT)
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@rm -rf $(LIBMLX)/build
-	$(MAKE) -C $(LIBFTDIR) clean
+	@rm -rf $(MLX_DIR)/build
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@rm -rf $(NAME)
-	$(MAKE) -C $(LIBFTDIR) fclean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

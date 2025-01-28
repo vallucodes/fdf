@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:30:06 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 11:25:49 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:31:24 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 
 void	close_fds(int *fd, int amount)
 {

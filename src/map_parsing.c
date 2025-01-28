@@ -6,13 +6,13 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:25:13 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 14:07:37 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:29:44 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // error handling not checked properly. Need to modify GNL to know if NULL is due to malloc fail or not
 
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 #include <string.h>
 
 #include <stdio.h>

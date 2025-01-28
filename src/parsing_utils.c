@@ -6,11 +6,11 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/27 11:26:45 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:29:54 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../inc/fdf.h"
 
 int	get_height(t_map *map, int *fd)
 {
