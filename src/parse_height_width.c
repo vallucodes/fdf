@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parse_height_width.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 12:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 16:46:32 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:38:43 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-float	calc_interval(t_map *map)
-{
-	float	interval;
-
-	interval = ft_minf(WIDTH / map->width, HEIGHT / map->height) / 2;
-	interval = ft_maxf(1.5, interval);
-	return(interval);
-}
-
-static void	check_errors(t_map *map, int *fd, char *arr, int error)
+void	check_errors(t_map *map, int *fd, char *arr, int error)
 {
 	if (error == 1)
 		exit_error(map, fd, 2, MALLOC);
@@ -60,13 +51,13 @@ int	calc_width(char *arr)
 
 	width = 0;
 	i = 0;
-	while(arr[i] && arr[i] != '\n')
+	while (arr[i] && arr[i] != '\n')
 	{
-		while(ft_isspace(arr[i]))
+		while (ft_isspace(arr[i]))
 			i++;
 		if (arr[i] > 32 && arr[i] < 127)
 		{
-			while(arr[i] > 32 && arr[i] < 127)
+			while (arr[i] > 32 && arr[i] < 127)
 				i++;
 			width++;
 		}

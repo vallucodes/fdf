@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:16:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 11:29:24 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:29:06 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	sy(int y1, int y2)
 	else
 		return (1);
 }
+
 static void	initiate_vars(t_linevars *vars, t_draw start_end)
 {
 	vars->dx = abs(start_end.x2 - start_end.x1);
@@ -38,6 +39,7 @@ static void	initiate_vars(t_linevars *vars, t_draw start_end)
 	vars->dz = 1.0 / vars->steps;
 	vars->t = 0;
 }
+
 void	draw_line(int32_t *pixels, int width, t_draw start_end)
 {
 	t_linevars		vars;
@@ -47,7 +49,8 @@ void	draw_line(int32_t *pixels, int width, t_draw start_end)
 	while (1)
 	{
 		color = interpolate_color(start_end.c1, start_end.c2, vars.t);
-		if (start_end.y1 < HEIGHT && start_end.y1 > 0 && start_end.x1 < WIDTH && start_end.x1 > 0)
+		if (start_end.y1 < HEIGHT && start_end.y1 > 0
+			&& start_end.x1 < WIDTH && start_end.x1 > 0)
 			pixels[start_end.y1 * width + start_end.x1] = color;
 		if (start_end.x1 == start_end.x2 && start_end.y1 == start_end.y2)
 			break ;
@@ -62,7 +65,6 @@ void	draw_line(int32_t *pixels, int width, t_draw start_end)
 			vars.err += vars.dx;
 			start_end.y1 += vars.sy;
 		}
-		vars.t += vars.dz; // Interpolate z
+		vars.t += vars.dz;
 	}
 }
-

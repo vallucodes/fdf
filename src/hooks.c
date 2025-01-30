@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:35:32 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 16:13:14 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:02:16 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ void	ft_hook(void *param)
 		fdf->map->y_offset += 7;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_UP))
 		fdf->map->y_offset -= 7;
+}
+
+void	ft_hook_scroll(void *param)
+{
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)param;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_R))
 		ft_scrollhook(0, 1, param);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_T))
@@ -77,8 +84,10 @@ void	ft_hook(void *param)
 
 void	draw_hook(void *param)
 {
-	t_fdf *fdf = (t_fdf *)param;
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)param;
 	reset_background(fdf);
 	do_operations(fdf->map);
-	draw_current_state((int32_t*)fdf->img->pixels, fdf->img, fdf->map);
+	draw_current_state((int32_t *)fdf->img->pixels, fdf->img, fdf->map);
 }

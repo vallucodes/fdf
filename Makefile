@@ -1,7 +1,7 @@
-NAME		= Game
+NAME		= fdf
+CC			= cc
 CFLAGS		= -g -Wextra -Wall -Werror -Wunreachable-code
 
-#Libraries
 MLX_DIR		= ./lib/MLX42
 MLX			= $(MLX_DIR)/build/libmlx42.a
 LIBFT_DIR 	= ./libft
@@ -12,19 +12,17 @@ OBJ_DIR		= obj/
 SRC_DIR		= src/
 
 HEADERS		= -I ./inc -I $(MLX_DIR)/include -I $(GNL_DIR) -I $(LIBFT_DIR)
-LIBS		= $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLXLIB		= $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-SRC			=	colors.c draw_current.c draw_line.c error.c \
-				gradient.c hooks.c initiate.c main.c parsing.c \
-				ops_move_scale.c ops_rotate.c parsing_utils.c small_operations.c \
+SRC			=	color_gradient.c color_points.c draw_current.c draw_line.c \
+				error.c hooks.c initiate.c main.c map_operations.c \
+				ops_move_scale.c ops_rotate.c parse_height_width.c parse_row.c parse.c \
 				gnl/get_next_line_utils.c gnl/get_next_line.c
 
-SRCS		= $(addprefix $(SRC_DIR), $(SRC))
-OBJS		= $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+OBJS		= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 all: $(NAME)
 
-#make libraries
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
@@ -39,16 +37,16 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-$(NAME): $(OBJS) $(LIBFT) $(OBJ_DIR) $(MLX)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) $(LIBFT)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	@$(CC) $(OBJS) $(MLXLIB) $(LIBFT) $(HEADERS) -o $(NAME)
 
 clean:
-	@rm -rf $(OBJ_DIR)
-	@rm -rf $(MLX_DIR)/build
+	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -f $(NAME)
+	rm -rf $(MLX_DIR)/build
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 17:21:25 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:07:08 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	set_z_scale(t_map *map)
 	int	max;
 	int	dz;
 
-	min = find_lowest(map->original, map->size, get_z);
-	max = find_highest(map->original, map->size, get_z);
+	min = find_lowest(map->original, map->size);
+	max = find_highest(map->original, map->size);
 	dz = max - min;
 	while (dz > HEIGHT - 1800)
 	{

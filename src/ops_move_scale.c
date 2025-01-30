@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:46:23 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 16:24:21 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:01:17 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	apply_scale_z(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < map->size)
@@ -26,7 +26,7 @@ void	apply_scale_z(t_map *map)
 
 void	zoom(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (map->zoom > 0)

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   small_operations.c                                 :+:      :+:    :+:   */
+/*   map_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:43 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 16:16:39 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:28:55 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	copy_map(t_map *map)
+static void	copy_map(t_map *map)
 {
 	int	i;
 
@@ -27,4 +27,33 @@ void	copy_map(t_map *map)
 	}
 }
 
+void	reset_background(t_fdf *fdf)
+{
+	uint32_t	i;
+	uint32_t	j;
 
+	i = 0;
+	while (i < fdf->img->height)
+	{
+		j = 0;
+		while (j < fdf->img->width)
+		{
+			mlx_put_pixel(fdf->img, j, i, fdf->map->cl.background);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	do_operations(t_map *map)
+{
+	copy_map(map);
+	apply_scale_z(map);
+	special_view(map, map->alpha_x, map->alpha_z);
+	rotation_x(map, map->angle_x);
+	rotation_y(map, map->angle_y);
+	rotation_z(map, map->angle_z);
+	zoom(map);
+	translate(map);
+	set_colors(map);
+}

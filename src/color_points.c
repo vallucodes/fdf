@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   color_points.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:08:58 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/28 16:27:36 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:28:34 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-// typedef float (*PointAccessor)(t_point *point);
-
 static int	is_all_set(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < map->size)
+	while (i < map->size)
 	{
 		if (map->original[i].color == 0)
 			return (0);
@@ -28,48 +26,33 @@ static int	is_all_set(t_map *map)
 	return (1);
 }
 
-float	get_x(t_point *point)
-{
-	return (point->x);
-}
-
-float	get_y(t_point *point)
-{
-	return (point->y);
-}
-
-float	get_z(t_point *point)
-{
-	return (point->z);
-}
-
-int	find_lowest(t_point *original, int size, PointAccessor accessor)
+int	find_lowest(t_point *original, int size)
 {
 	int		i;
 	float	nb;
 
 	i = 1;
-	nb = accessor(&original[0]);
-	while(i < size)
+	nb = original[0].z;
+	while (i < size)
 	{
-		if (nb > accessor(&original[i]))
-			nb = accessor(&original[i]);
+		if (nb > original[i].z)
+			nb = original[i].z;
 		i++;
 	}
 	return (nb);
 }
 
-int	find_highest(t_point *original, int size, PointAccessor accessor)
+int	find_highest(t_point *original, int size)
 {
 	int		i;
 	float	nb;
 
 	i = 1;
-	nb = accessor(&original[0]);
-	while(i < size)
+	nb = original[0].z;
+	while (i < size)
 	{
-		if (nb < accessor(&original[i]))
-			nb = accessor(&original[i]);
+		if (nb < original[i].z)
+			nb = original[i].z;
 		i++;
 	}
 	return (nb);
@@ -93,14 +76,14 @@ static void	write_colors(t_map *map, int low, int high)
 
 void	set_colors(t_map *map)
 {
-	int			lowest;
-	int			highest;
+	int	lowest;
+	int	highest;
 
+	if (is_all_set(map))
+		return ;
 	lowest = map->original[0].z;
 	highest = map->original[0].z;
-	if(is_all_set(map))
-		return ;
-	lowest = find_lowest(map->original, map->size, get_z);
-	highest = find_highest(map->original, map->size, get_z);
+	lowest = find_lowest(map->original, map->size);
+	highest = find_highest(map->original, map->size);
 	write_colors(map, lowest, highest);
 }
