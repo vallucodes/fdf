@@ -1,6 +1,6 @@
 NAME		= fdf
 CC			= cc
-CFLAGS		= -g -Wextra -Wall -Werror -Wunreachable-code
+CFLAGS		= -Wextra -Wall -Werror -Wunreachable-code
 
 MLX_DIR		= ./lib/MLX42
 MLX			= $(MLX_DIR)/build/libmlx42.a
