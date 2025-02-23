@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:25:20 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/29 14:55:14 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:24:36 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_fdf	initialize_fdf(char *map_name)
 	fdf.map = map_parsing(map_name);
 	initiate_values_map(fdf.map);
 	set_z_scale(fdf.map);
+	do_operations(fdf.map);
+	auto_center_y(fdf.map);
 	fdf.mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
 	if (!fdf.mlx)
 		exit_error(fdf.map, NULL, 0, mlx_strerror(mlx_errno));

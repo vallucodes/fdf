@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:08:58 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/29 11:28:34 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:34:57 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	is_all_set(t_map *map)
 	return (1);
 }
 
-int	find_lowest(t_point *original, int size)
+float	find_lowest(t_point *original, int size)
 {
 	int		i;
 	float	nb;
@@ -42,7 +42,7 @@ int	find_lowest(t_point *original, int size)
 	return (nb);
 }
 
-int	find_highest(t_point *original, int size)
+float	find_highest(t_point *original, int size)
 {
 	int		i;
 	float	nb;
@@ -58,7 +58,7 @@ int	find_highest(t_point *original, int size)
 	return (nb);
 }
 
-static void	write_colors(t_map *map, int low, int high)
+static void	write_colors(t_map *map, float low, float high)
 {
 	int			i;
 	float		t;
@@ -76,8 +76,8 @@ static void	write_colors(t_map *map, int low, int high)
 
 void	set_colors(t_map *map)
 {
-	int	lowest;
-	int	highest;
+	float	lowest;
+	float	highest;
 
 	if (is_all_set(map))
 		return ;

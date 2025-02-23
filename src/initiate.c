@@ -6,22 +6,47 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:48:30 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/29 11:07:08 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:39:48 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
+void	auto_center_y(t_map *map)
+{
+	int		i;
+	float	y_lowest;
+	float	y_highest;
+
+	i = 1;
+	y_lowest = map->new2d[0].y;
+	while (i < map->size)
+	{
+		if (y_lowest > map->new2d[i].y)
+			y_lowest = map->new2d[i].y;
+		i++;
+	}
+	i = 1;
+	y_highest = map->new2d[0].y;
+	while (i < map->size)
+	{
+		if (y_highest < map->new2d[i].y)
+			y_highest = map->new2d[i].y;
+		i++;
+	}
+	map->y_offset = (HEIGHT / 2) - (y_highest + y_lowest) / 2;
+}
+
 void	set_z_scale(t_map *map)
 {
-	int	min;
-	int	max;
-	int	dz;
+	float	min;
+	float	max;
+	float	dz;
 
 	min = find_lowest(map->original, map->size);
 	max = find_highest(map->original, map->size);
 	dz = max - min;
-	while (dz > HEIGHT - 1800)
+	while (dz > HEIGHT * 0.3)
 	{
 		map->z_scale *= 0.95;
 		dz *= 0.9;

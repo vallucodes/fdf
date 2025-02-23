@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/01/29 14:33:41 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:50:11 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include <math.h>		// math
 # include <fcntl.h>		//open
 # include <unistd.h>	//close
+# include <stdio.h>
 
-# define WIDTH	3840
-# define HEIGHT	2160
+# define WIDTH	1500
+# define HEIGHT	1000
 # define MALLOC	"Memory allocation failed"
 # define MAP	"Invalid map"
 # define FILE	"Invalid file name"
@@ -111,12 +112,13 @@ void		set_elevation(t_map *map);
 void		define_colors(t_colors *cl);
 void		initiate_values_map(t_map *map);
 void		set_z_scale(t_map *map);
+void		auto_center_y(t_map *map);
 
 //colors
 uint32_t	interpolate_color(uint32_t c1, uint32_t c2, float t);
 void		set_colors(t_map *map);
-int			find_highest(t_point *points, int size);
-int			find_lowest(t_point *points, int size);
+float		find_highest(t_point *points, int size);
+float		find_lowest(t_point *points, int size);
 
 //movement operators
 void		rotation_x(t_map *map, float theta);
