@@ -6,7 +6,7 @@
 /*   By: vlopatin <vlopatin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:17:01 by vlopatin          #+#    #+#             */
-/*   Updated: 2025/02/23 12:50:11 by vlopatin         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:39:01 by vlopatin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <math.h>		// math
 # include <fcntl.h>		//open
 # include <unistd.h>	//close
-# include <stdio.h>
 
 # define WIDTH	1500
 # define HEIGHT	1000
